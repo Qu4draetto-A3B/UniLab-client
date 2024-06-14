@@ -12,18 +12,29 @@ public class Operator extends Application {
     public void start(Stage stage) throws Exception {
         //creazione dei bottoni e TextField
         Button back = new Button();
+        Button reg = new Button("REGISTRAZIONE");
+
         TextField userID = new TextField();
         TextField name = new TextField();
         TextField surname = new TextField();
         TextField CF = new TextField();
         TextField email = new TextField();
         TextField password = new TextField();
-        Button reg = new Button("REGISTRAZIONE");
+
 
         //bottone back
         back.setOnAction(event -> {
             try {
                 changeInHome(stage);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        //bottone reg
+        reg.setOnAction(event -> {
+            try {
+                changeInOperatorReg(stage);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -43,7 +54,7 @@ public class Operator extends Application {
         //---------------------------------------------------------------------------------------------------------------
         //VBOX
         VBox vb = new VBox();
-        vb.getChildren().addAll(userID,name,surname,CF,email,password,back);
+        vb.getChildren().addAll(userID,name,surname,CF,email,password,reg,back);
 
         //SCENA
         Scene scene = new Scene(vb, 800, 400); //scena
@@ -56,7 +67,10 @@ public class Operator extends Application {
 
     }
 
-    public void changeInHome(Stage stage) throws Exception {
+    private void changeInHome(Stage stage) throws Exception {
         new Home().start(stage);
+    }
+    private void changeInOperatorReg(Stage stage) throws Exception {
+        new OperatorReg().start(stage);
     }
 }
