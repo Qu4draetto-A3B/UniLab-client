@@ -7,9 +7,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class Operator extends Application {
+public class Register extends Application {
     @Override
     public void start(Stage stage) throws Exception {
+        //SCHERMATA DI REGISTRAZIONE CON TUTTI GLI ATTRIBUTI
         //creazione dei bottoni e TextField
         Button back = new Button();
         Button reg = new Button("REGISTRAZIONE");
@@ -71,6 +72,6 @@ public class Operator extends Application {
         new Home().start(stage);
     }
     private void changeInOperatorReg(Stage stage) throws Exception {
-        new OperatorReg().start(stage);
+        new CenterReg().start(stage);
     }
 }

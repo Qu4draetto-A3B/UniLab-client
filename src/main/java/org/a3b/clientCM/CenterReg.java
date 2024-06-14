@@ -6,9 +6,11 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class OperatorReg extends Application {
+public class CenterReg extends Application {
     @Override
     public void start(Stage stage) throws Exception {
+        //SCHERMATA DOPO CHE SI SCHIACCIA REGISTRAZIONE CON TUTTI GLI ATTRIBUTI
+        //SERVE PER GESTIRE IL NUOVO CENTRO DI MONITORAGGIO O USARNE UNO GIA ESISTENTE
         //creazione dei bottoni e TextField
         Button existcenter = new Button("CENTRO DI MONITORAGGIO ESISTENTE");
         Button newcenter = new Button("NUOVO CENTRO DI MONITORAGGIO");
@@ -42,6 +44,14 @@ public class OperatorReg extends Application {
             }
         });
 
+        existcenter.setOnAction(event -> {
+            try {
+                changeInExistCenter(stage);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
+
         //VBOX
         VBox vb = new VBox();
         vb.getChildren().addAll(existcenter, newcenter,back,home);
@@ -57,12 +67,15 @@ public class OperatorReg extends Application {
     private void changeInNewMonitoringCenter(Stage stage) throws Exception  {
         new NewMonitoringCenter().start(stage);
     }
+    private void changeInExistCenter(Stage stage) throws Exception  {
+        new ExistMonitorCenter().start(stage);
+    }
 
     private void changeInHome(Stage stage) throws Exception {
         new Home().start(stage);
     }
     private void changeInOperator(Stage stage) throws Exception {
-        new Operator().start(stage);
+        new Register().start(stage);
     }
 
 }

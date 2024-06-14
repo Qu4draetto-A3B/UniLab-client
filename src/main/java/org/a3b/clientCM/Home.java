@@ -4,11 +4,8 @@ import javafx.application.Application;
 import javafx.geometry.*;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -16,6 +13,7 @@ import javafx.stage.Stage;
 import java.io.InputStream;
 
 public class Home extends Application {
+    //SCHERMATA INIZIALE CON LOGO + REGISTRAZIONE + LOGIN
     @Override
     public void start(Stage stage) throws Exception {
         var javaVersion = SystemInfo.javaVersion();
@@ -28,19 +26,19 @@ public class Home extends Application {
         imageViewLogo.setFitWidth(side); //larghezza
         imageViewLogo.setFitHeight(side); //altezza
 
-
-        //CREAZIONE GRIDPANEL
-        GridPane gp = new GridPane();
-
-        //creazione dei bottoni e TextField
-        TextField textField = new TextField();
-        Button search=new Button("CERCA");
+        Button search=new Button("VISUALIZZA AREA");
         Button reg = new Button("REGISTRAZIONE");
         Button login = new Button("LOGIN");
 
         //SETTAGGIO bottoni e TextField
-        textField.setPromptText("INSERISCI L'AREA DI INTERESSE");
-        search.setOnAction(event -> System.out.println("CERCA : "+ textField.getText()) );
+
+        search.setOnAction(event -> {
+            try {
+                changeInSearch(stage);
+            } catch (Exception e) {
+                System.out.println("errore: bottone login evento");
+            }
+        });
         reg.setOnAction(event -> {
             try {
                 changeInOperator(stage);
@@ -58,27 +56,21 @@ public class Home extends Application {
         });
 
 
-        //GP
-        gp.add(textField, 0,0);
-        gp.add(search, 1,0);
-        gp.add(reg, 0,1);
-        gp.add(login, 1,1);
-        gp.setHalignment(textField, HPos.CENTER);
-        gp.setHalignment(search, HPos.CENTER);
-        gp.setHalignment(reg, HPos.CENTER);
-        gp.setHalignment(login, HPos.CENTER);
-        gp.setAlignment(Pos.CENTER);
 
-        // STACKPANE per Image
+
+
+        //VBOX
         VBox vb = new VBox();
         vb.getChildren().add(imageViewLogo);
-        vb.getChildren().add(gp);
+        vb.getChildren().addAll(search,reg,login);
         vb.setAlignment(Pos.CENTER);
 
         //SCENA
         Scene scene = new Scene(vb, 800, 400, Color.WHITE); //scena
         scene.getRoot().setStyle("-fx-background-color: #FDFFFE");
         stage.setScene(scene); //setta scena
+        stage.setTitle("Climate Monitoring");
+
         stage.show(); //mostra scena
     }
 
@@ -86,7 +78,11 @@ public class Home extends Application {
         new Login().start(stage);
     }
 
-    private void changeInOperator(Stage stage) throws Exception {
-        new Operator().start(stage);
+    private void changeInOperator(Stage stage) throws  Exception {
+        new Register().start(stage);
+    }
+
+    private void changeInSearch(Stage stage) throws  Exception{
+        new SearchArea().start(stage);
     }
 }
