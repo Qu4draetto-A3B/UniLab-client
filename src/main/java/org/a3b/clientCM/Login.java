@@ -14,7 +14,7 @@ import java.io.InputStream;
 public class Login extends Application {
     @Override
     public void start(Stage stage) throws Exception {
-        //SCHERMATA DI LOGIN DOVE INSERIRE USERID E PASSWORD
+        //SCHERMATA DI LOGIN DOVE INSERIRE USERID E PASSWORD e accedere ai vari centri di monitoraggi o crearne di nuovi
         //creazione dei bottoni e TextField
         //bottoni con immagini
         //bottone con immagine back
@@ -46,7 +46,7 @@ public class Login extends Application {
         //bottone login
         login.setOnAction(event -> {
             try {
-                //AGGIUNGERE METODO PER IL CONTROLLO UTENTE (ASPETTIAMO SERVER)
+               changeInOperatorLog(stage);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -69,5 +69,8 @@ public class Login extends Application {
     }
     private void changeInHome(Stage stage) throws Exception {
         new Home().start(stage);
+    }
+    private void changeInOperatorLog(Stage stage) throws Exception {
+        new CenterReg().start(stage);
     }
 }

@@ -13,7 +13,7 @@ import java.io.InputStream;
 public class CenterReg extends Application {
     @Override
     public void start(Stage stage) throws Exception {
-        //SCHERMATA DOPO CHE SI SCHIACCIA REGISTRAZIONE CON TUTTI GLI ATTRIBUTI
+        //SCHERMATA DOPO CHE SI SCHIACCIA LOGIN CON TUTTI GLI ATTRIBUTI
         //SERVE PER GESTIRE IL NUOVO CENTRO DI MONITORAGGIO O USARNE UNO GIA ESISTENTE
         //creazione dei bottoni e TextField
         Button existcenter = new Button("CENTRO DI MONITORAGGIO ESISTENTE");

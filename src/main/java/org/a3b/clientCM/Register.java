@@ -44,14 +44,6 @@ public class Register extends Application {
             }
         });
 
-        //bottone reg
-        reg.setOnAction(event -> {
-            try {
-                changeInOperatorReg(stage);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        });
 
         //SETTAGGIO bottoni e TextField
         userID.setPromptText("INSERISCI USERID");
@@ -83,7 +75,5 @@ public class Register extends Application {
     private void changeInHome(Stage stage) throws Exception {
         new Home().start(stage);
     }
-    private void changeInOperatorReg(Stage stage) throws Exception {
-        new CenterReg().start(stage);
-    }
+
 }
