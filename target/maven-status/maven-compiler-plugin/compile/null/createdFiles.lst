@@ -1,3 +1,9 @@
+org\a3b\clientCM\App.class
 module-info.class
-org/openjfx/App.class
-org/openjfx/SystemInfo.class
+org\a3b\clientCM\Home.class
+org\a3b\clientCM\Login.class
+org\a3b\clientCM\NewMonitoringCenter.class
+org\a3b\clientCM\OperatorReg.class
+org\a3b\clientCM\SystemInfo.class
+org\a3b\clientCM\Operator.class
+org\a3b\clientCM\SearchArea.class
