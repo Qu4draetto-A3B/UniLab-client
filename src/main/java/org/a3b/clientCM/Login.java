@@ -1,6 +1,7 @@
 package org.a3b.clientCM;
 
 import javafx.application.Application;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -60,6 +61,7 @@ public class Login extends Application {
 
         VBox vb = new VBox();
         vb.getChildren().addAll(userID,password,login,backButton);
+        vb.setAlignment(Pos.CENTER);
 
         //SCENA
         Scene scene = new Scene(vb, 800, 400); //scena

@@ -1,6 +1,7 @@
 package org.a3b.clientCM;
 
 import javafx.application.Application;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -83,6 +84,8 @@ public class CenterReg extends Application {
         //VBOX
         VBox vb = new VBox();
         vb.getChildren().addAll(existcenter, newcenter,backButton,homeButton);
+        vb.setAlignment(Pos.CENTER);
+
 
         //SCENA
         Scene scene = new Scene(vb, 800, 400); //scena
