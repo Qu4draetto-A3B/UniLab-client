@@ -3,31 +3,59 @@ package org.a3b.clientCM;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class SearchArea extends Application {
+    //SCHERMATA PER CERCARE E VISUALIZZARE AREA GEOGRAFICA
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage stage) {
+        //SCHERMATA DI VISUALIZZAIZONE DEI CENTRI ESISTENTI
+        //bottoni con immagini
+        //input per immagini
+        InputStream inhome = getClass().getResourceAsStream("/img/home.png");
+        InputStream inback =  getClass().getResourceAsStream("/img/arrow.png");
+        Image back = new Image(inback);
+        ImageView backView = new ImageView(back);
+        backView.setFitWidth(50);  // Imposta la larghezza desiderata
+        backView.setFitHeight(50); // Imposta l'altezza desiderata
+        backView.setPreserveRatio(true); // Mantiene le proporzioni originali
+        Button backButton = new Button();
+        backButton.setGraphic(backView);
+        backButton.setStyle("-fx-background-color: transparent;"); // Rende trasparente lo sfondo del bottone
+
+
+
+
         // Creazione del campo di testo per la barra di ricerca
         TextField searchField = new TextField();
         searchField.setPromptText("Cerca...");
+
+        backButton.setOnAction(event -> {
+            try {
+                changeInHome(stage);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
 
         // Creazione della ListView per visualizzare i risultati
         ListView<String> listView = new ListView<>();
         listView.setOnKeyPressed(event -> handleKeyPress(event, listView));
         listView.setOnMouseClicked(event -> handleClick(event, listView));
-
-        // Creazione dello ScrollPane per contenere la ListView
 
 
         // Lista di esempio (puoi sostituirla con dati reali)
@@ -46,16 +74,18 @@ public class SearchArea extends Application {
         });
 
         // Layout principale
-        VBox root = new VBox(10, searchField, listView);
+        VBox root = new VBox(10, searchField, listView,backButton);
         root.setPadding(new Insets(10));
 
         // Creazione della scena
-        Scene scene = new Scene(root, 400, 300);
+        Scene scene = new Scene(root, 800, 400);
+        scene.getRoot().setStyle("-fx-background-color: #FDFFFE");
+        stage.setScene(scene); //setta scena
+        stage.setTitle("Climate Monitoring");
 
         // Impostazione della scena sullo Stage
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("Barra di Ricerca con Sbarra di Scorrimento in JavaFX");
-        primaryStage.show();
+        stage.setScene(scene);
+        stage.show();
     }
 
     private void handleKeyPress(KeyEvent event, ListView<String> listView) {
@@ -76,7 +106,8 @@ public class SearchArea extends Application {
         }
     }
 
-    public static void main(String[] args) {
-        launch(args);
+    private void changeInHome(Stage stage) throws Exception {
+        new Home().start(stage);
     }
+
 }

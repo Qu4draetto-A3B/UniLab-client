@@ -7,7 +7,7 @@ import javafx.stage.Stage;
  * JavaFX App
  */
 public class App extends Application {
-
+//MAIN
     @Override
     public void start(Stage stage) throws Exception {
         new Home().start(stage);

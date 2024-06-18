@@ -4,28 +4,18 @@ import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.InputStream;
 
-public class NewMonitoringCenter extends Application {
+public class ExistMonitorCenter extends Application {
     @Override
     public void start(Stage stage) throws Exception {
-        //DOPO AVER SCHIACCIATO NUOVO CENTRO DI MONITORAGGIO
-        //TUTTI GLI ATTRIBUTI DEL CENTRO DI MONITORAGGIO
-        //BOTTONI E TEXTFIELD
-        TextField name = new TextField();
-        TextField street = new TextField();
-        TextField civicnumber = new TextField();
-        TextField zipcode = new TextField();
-        TextField town = new TextField();
-        TextField province = new TextField();
-       
-        Button enter = new Button("CONFERMA");
+        //SCHERMATA DI VISUALIZZAIZONE DEI CENTRI ESISTENTI
         //bottoni con immagini
         //bottone con immagine Home
         InputStream inhome = getClass().getResourceAsStream("/img/home.png");
@@ -37,6 +27,8 @@ public class NewMonitoringCenter extends Application {
         Button homeButton = new Button();
         homeButton.setGraphic(homeView);
         homeButton.setStyle("-fx-background-color: transparent;"); // Rende trasparente lo sfondo del bottone
+
+
         //bottone con immagine back
         InputStream inback =  getClass().getResourceAsStream("/img/arrow.png");
         Image back = new Image(inback);
@@ -50,17 +42,11 @@ public class NewMonitoringCenter extends Application {
 
 
 
-        //SET TEXTFIELD
-        town.setPromptText("INSERISCI CITTA");
-        province.setPromptText("INSERISCI PROVINCIA");
-        street.setPromptText("INSERISCI STRADA");
-        civicnumber.setPromptText("INSERISCI NUMEROCIVICO");
-        zipcode.setPromptText("INSERISCI ZIPCODE");
 
         //bottone back
         backButton.setOnAction(event -> {
             try {
-                changeInOperatorReg(stage);
+                changeInCenterReg(stage);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -74,25 +60,23 @@ public class NewMonitoringCenter extends Application {
                 throw new RuntimeException(e);
             }
         });
-
         //VBOX
         VBox vb = new VBox();
-        vb.getChildren().addAll(town,province,street,civicnumber,zipcode,enter,backButton,homeButton);
+        vb.getChildren().addAll(backButton,homeButton);
         vb.setAlignment(Pos.CENTER);
 
 
         //SCENA
-        Scene scene = new Scene(vb, 800, 400); //scena
+        Scene scene = new Scene(vb, 800, 400, Color.WHITE); //scena
         scene.getRoot().setStyle("-fx-background-color: #FDFFFE");
         stage.setScene(scene); //setta scena
-        stage.show(); //mostra scena
-
+        stage.setTitle("Climate Monitoring");
 
     }
     private void changeInHome(Stage stage) throws Exception {
         new Home().start(stage);
     }
-    private void changeInOperatorReg(Stage stage) throws Exception {
+    private void changeInCenterReg(Stage stage) throws Exception {
         new CenterReg().start(stage);
     }
 }

@@ -1,17 +1,31 @@
 package org.a3b.clientCM;
 
 import javafx.application.Application;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class Operator extends Application {
+import java.io.InputStream;
+
+public class Register extends Application {
     @Override
     public void start(Stage stage) throws Exception {
+        //SCHERMATA DI REGISTRAZIONE CON TUTTI GLI ATTRIBUTI
         //creazione dei bottoni e TextField
-        Button back = new Button();
+        InputStream inback =  getClass().getResourceAsStream("/img/arrow.png");
+        Image back = new Image(inback);
+        ImageView backView = new ImageView(back);
+        backView.setFitWidth(50);  // Imposta la larghezza desiderata
+        backView.setFitHeight(50); // Imposta l'altezza desiderata
+        backView.setPreserveRatio(true); // Mantiene le proporzioni originali
+        Button backButton = new Button();
+        backButton.setGraphic(backView);
+        backButton.setStyle("-fx-background-color: transparent;"); // Rende trasparente lo sfondo del bottone
         Button reg = new Button("REGISTRAZIONE");
 
         TextField userID = new TextField();
@@ -23,7 +37,7 @@ public class Operator extends Application {
 
 
         //bottone back
-        back.setOnAction(event -> {
+        backButton.setOnAction(event -> {
             try {
                 changeInHome(stage);
             } catch (Exception e) {
@@ -31,14 +45,6 @@ public class Operator extends Application {
             }
         });
 
-        //bottone reg
-        reg.setOnAction(event -> {
-            try {
-                changeInOperatorReg(stage);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        });
 
         //SETTAGGIO bottoni e TextField
         userID.setPromptText("INSERISCI USERID");
@@ -54,7 +60,8 @@ public class Operator extends Application {
         //---------------------------------------------------------------------------------------------------------------
         //VBOX
         VBox vb = new VBox();
-        vb.getChildren().addAll(userID,name,surname,CF,email,password,reg,back);
+        vb.getChildren().addAll(userID,name,surname,CF,email,password,reg,backButton);
+        vb.setAlignment(Pos.CENTER);
 
         //SCENA
         Scene scene = new Scene(vb, 800, 400); //scena
@@ -70,7 +77,5 @@ public class Operator extends Application {
     private void changeInHome(Stage stage) throws Exception {
         new Home().start(stage);
     }
-    private void changeInOperatorReg(Stage stage) throws Exception {
-        new OperatorReg().start(stage);
-    }
+
 }

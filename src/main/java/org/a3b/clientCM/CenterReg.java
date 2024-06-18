@@ -4,7 +4,6 @@ import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
@@ -12,20 +11,14 @@ import javafx.stage.Stage;
 
 import java.io.InputStream;
 
-public class NewMonitoringCenter extends Application {
+public class CenterReg extends Application {
     @Override
     public void start(Stage stage) throws Exception {
-        //DOPO AVER SCHIACCIATO NUOVO CENTRO DI MONITORAGGIO
-        //TUTTI GLI ATTRIBUTI DEL CENTRO DI MONITORAGGIO
-        //BOTTONI E TEXTFIELD
-        TextField name = new TextField();
-        TextField street = new TextField();
-        TextField civicnumber = new TextField();
-        TextField zipcode = new TextField();
-        TextField town = new TextField();
-        TextField province = new TextField();
-       
-        Button enter = new Button("CONFERMA");
+        //SCHERMATA DOPO CHE SI SCHIACCIA LOGIN CON TUTTI GLI ATTRIBUTI
+        //SERVE PER GESTIRE IL NUOVO CENTRO DI MONITORAGGIO O USARNE UNO GIA ESISTENTE
+        //creazione dei bottoni e TextField
+        Button existcenter = new Button("CENTRO DI MONITORAGGIO ESISTENTE");
+        Button newcenter = new Button("NUOVO CENTRO DI MONITORAGGIO");
         //bottoni con immagini
         //bottone con immagine Home
         InputStream inhome = getClass().getResourceAsStream("/img/home.png");
@@ -37,6 +30,8 @@ public class NewMonitoringCenter extends Application {
         Button homeButton = new Button();
         homeButton.setGraphic(homeView);
         homeButton.setStyle("-fx-background-color: transparent;"); // Rende trasparente lo sfondo del bottone
+
+
         //bottone con immagine back
         InputStream inback =  getClass().getResourceAsStream("/img/arrow.png");
         Image back = new Image(inback);
@@ -50,17 +45,11 @@ public class NewMonitoringCenter extends Application {
 
 
 
-        //SET TEXTFIELD
-        town.setPromptText("INSERISCI CITTA");
-        province.setPromptText("INSERISCI PROVINCIA");
-        street.setPromptText("INSERISCI STRADA");
-        civicnumber.setPromptText("INSERISCI NUMEROCIVICO");
-        zipcode.setPromptText("INSERISCI ZIPCODE");
 
         //bottone back
         backButton.setOnAction(event -> {
             try {
-                changeInOperatorReg(stage);
+                changeInOperator(stage);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -75,9 +64,26 @@ public class NewMonitoringCenter extends Application {
             }
         });
 
+        //bottone
+        newcenter.setOnAction(event -> {
+            try {
+                changeInNewMonitoringCenter(stage);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        existcenter.setOnAction(event -> {
+            try {
+                changeInExistCenter(stage);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
+
         //VBOX
         VBox vb = new VBox();
-        vb.getChildren().addAll(town,province,street,civicnumber,zipcode,enter,backButton,homeButton);
+        vb.getChildren().addAll(existcenter, newcenter,backButton,homeButton);
         vb.setAlignment(Pos.CENTER);
 
 
@@ -87,12 +93,20 @@ public class NewMonitoringCenter extends Application {
         stage.setScene(scene); //setta scena
         stage.show(); //mostra scena
 
-
     }
+
+    private void changeInNewMonitoringCenter(Stage stage) throws Exception  {
+        new NewMonitoringCenter().start(stage);
+    }
+    private void changeInExistCenter(Stage stage) throws Exception  {
+        new ExistMonitorCenter().start(stage);
+    }
+
     private void changeInHome(Stage stage) throws Exception {
         new Home().start(stage);
     }
-    private void changeInOperatorReg(Stage stage) throws Exception {
-        new CenterReg().start(stage);
+    private void changeInOperator(Stage stage) throws Exception {
+        new Register().start(stage);
     }
+
 }
