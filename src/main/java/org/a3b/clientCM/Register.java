@@ -45,6 +45,15 @@ public class Register extends Application {
             }
         });
 
+        //bottone reg
+        reg.setOnAction(event -> {
+            try {
+                changeInCenterReg(stage);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
+
 
         //SETTAGGIO bottoni e TextField
         userID.setPromptText("INSERISCI USERID");
@@ -73,7 +82,9 @@ public class Register extends Application {
 
 
     }
-
+    private void changeInCenterReg(Stage stage) throws Exception {
+        new CenterReg().start(stage);
+    }
     private void changeInHome(Stage stage) throws Exception {
         new Home().start(stage);
     }

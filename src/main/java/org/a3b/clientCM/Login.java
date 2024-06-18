@@ -47,7 +47,7 @@ public class Login extends Application {
         //bottone login
         login.setOnAction(event -> {
             try {
-               changeInOperatorLog(stage);
+                changeInOperator(stage);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -72,7 +72,8 @@ public class Login extends Application {
     private void changeInHome(Stage stage) throws Exception {
         new Home().start(stage);
     }
-    private void changeInOperatorLog(Stage stage) throws Exception {
-        new CenterReg().start(stage);
+    private void changeInOperator(Stage stage) throws Exception {
+        new Operator().start(stage);
     }
+
 }

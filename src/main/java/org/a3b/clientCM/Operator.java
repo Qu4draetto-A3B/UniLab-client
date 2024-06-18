@@ -11,14 +11,11 @@ import javafx.stage.Stage;
 
 import java.io.InputStream;
 
-public class CenterReg extends Application {
+public class Operator extends Application {
+    //dopo aver schiacciato il login si apre una pagina con i vari bottoni:
+    //inserire parametri, creare nuovo centro di monitoraggio, visualizza aree, e impostazioni
     @Override
     public void start(Stage stage) throws Exception {
-        //SCHERMATA DOPO CHE SI SCHIACCIA LOGIN CON TUTTI GLI ATTRIBUTI
-        //SERVE PER GESTIRE IL NUOVO CENTRO DI MONITORAGGIO O USARNE UNO GIA ESISTENTE
-        //creazione dei bottoni e TextField
-        Button existcenter = new Button("CENTRO DI MONITORAGGIO ESISTENTE");
-        Button newcenter = new Button("NUOVO CENTRO DI MONITORAGGIO");
         //bottoni con immagini
         //bottone con immagine Home
         InputStream inhome = getClass().getResourceAsStream("/img/home.png");
@@ -30,8 +27,6 @@ public class CenterReg extends Application {
         Button homeButton = new Button();
         homeButton.setGraphic(homeView);
         homeButton.setStyle("-fx-background-color: transparent;"); // Rende trasparente lo sfondo del bottone
-
-
         //bottone con immagine back
         InputStream inback =  getClass().getResourceAsStream("/img/arrow.png");
         Image back = new Image(inback);
@@ -42,14 +37,16 @@ public class CenterReg extends Application {
         Button backButton = new Button();
         backButton.setGraphic(backView);
         backButton.setStyle("-fx-background-color: transparent;"); // Rende trasparente lo sfondo del bottone
-
-
-
+        //bottoni
+        Button insertParam = new Button("INSERISCI PARAMETRI");
+        Button createNewCenter = new Button("CREA NUOVO CENTRO DI MONITORAGGIO");
+        Button viewAree = new Button("VISUALIZZA AREE");
+        Button settings = new Button("IMPOSTAZIONI");
 
         //bottone back
         backButton.setOnAction(event -> {
             try {
-                changeInRegister(stage);
+                changeInLogin(stage);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -64,8 +61,26 @@ public class CenterReg extends Application {
             }
         });
 
-        //bottone
-        newcenter.setOnAction(event -> {
+        //bottone inserimento parametri
+        insertParam.setOnAction(event -> {
+            try {
+                changeInInsertParam(stage);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        //botton visualizza aree
+        viewAree.setOnAction(event -> {
+            try {
+                changeInSearchAree(stage);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        //bottone nuovo centro di monitoraggio
+        createNewCenter.setOnAction(event -> {
             try {
                 changeInNewMonitoringCenter(stage);
             } catch (Exception e) {
@@ -73,40 +88,33 @@ public class CenterReg extends Application {
             }
         });
 
-        existcenter.setOnAction(event -> {
-            try {
-                changeInExistCenter(stage);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        });
 
         //VBOX
         VBox vb = new VBox();
-        vb.getChildren().addAll(existcenter, newcenter,backButton,homeButton);
+        vb.getChildren().addAll(insertParam, createNewCenter, viewAree, settings,backButton,homeButton);
         vb.setAlignment(Pos.CENTER);
-
 
         //SCENA
         Scene scene = new Scene(vb, 800, 400); //scena
         scene.getRoot().setStyle("-fx-background-color: #FDFFFE");
         stage.setScene(scene); //setta scena
         stage.show(); //mostra scena
-
     }
 
-    private void changeInNewMonitoringCenter(Stage stage) throws Exception  {
-        new NewMonitoringCenter().start(stage);
-    }
-    private void changeInExistCenter(Stage stage) throws Exception  {
-        new ExistMonitorCenter().start(stage);
+    private void changeInSearchAree(Stage stage) throws Exception {
+        new SearchArea().start(stage);
     }
 
+    private void changeInInsertParam(Stage stage) throws Exception {
+        new ClimateParameters().start(stage);
+    }
     private void changeInHome(Stage stage) throws Exception {
         new Home().start(stage);
     }
-    private void changeInRegister(Stage stage) throws Exception {
-        new Register().start(stage);
+    private void changeInLogin(Stage stage) throws Exception {
+        new Login().start(stage);
     }
-
+    private void changeInNewMonitoringCenter (Stage stage) throws Exception{
+        new NewMonitoringCenter().start(stage);
+    }
 }
