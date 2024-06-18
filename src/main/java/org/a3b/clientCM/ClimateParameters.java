@@ -12,6 +12,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -20,10 +22,57 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
+import java.io.InputStream;
+
 public class ClimateParameters extends Application {
 
     @Override
     public void start(Stage stage) {
+        //bottoni con immagini
+        //bottone con immagine Home
+        InputStream inhome = getClass().getResourceAsStream("/img/home.png");
+        Image home = new Image(inhome);
+        ImageView homeView = new ImageView(home);
+        homeView.setFitWidth(50);  // Imposta la larghezza desiderata
+        homeView.setFitHeight(50); // Imposta l'altezza desiderata
+        homeView.setPreserveRatio(true); // Mantiene le proporzioni originali
+        Button homeButton = new Button();
+        homeButton.setGraphic(homeView);
+        homeButton.setStyle("-fx-background-color: transparent;"); // Rende trasparente lo sfondo del bottone
+        //bottone con immagine back
+        InputStream inback =  getClass().getResourceAsStream("/img/arrow.png");
+        Image back = new Image(inback);
+        ImageView backView = new ImageView(back);
+        backView.setFitWidth(50);  // Imposta la larghezza desiderata
+        backView.setFitHeight(50); // Imposta l'altezza desiderata
+        backView.setPreserveRatio(true); // Mantiene le proporzioni originali
+        Button backButton = new Button();
+        backButton.setGraphic(backView);
+        backButton.setStyle("-fx-background-color: transparent;"); // Rende trasparente lo sfondo del bottone
+
+
+        //bottone back
+        backButton.setOnAction(event -> {
+            try {
+                changeInLogin(stage);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        //bottone home
+        homeButton.setOnAction(event -> {
+            try {
+                changeInHome(stage);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+
+
+
+
         // Crea il TableView
         TableView<Row> tableView = new TableView<>();
         tableView.setEditable(true); // Abilita la modalità di modifica
@@ -71,11 +120,11 @@ public class ClimateParameters extends Application {
         tableView.setItems(data);
 
         // Aggiungi il TableView al layout
-        VBox vb = new VBox(10, tableView, buttonOK);
+        VBox vb = new VBox(10, tableView, buttonOK,backButton,homeButton);
         vb.setAlignment(Pos.CENTER);
 
         // Crea la scena e mostra la finestra
-        Scene scene = new Scene(vb, 1000, 500, Color.WHITE);
+        Scene scene = new Scene(vb, 1000, 1000, Color.WHITE);
         scene.getRoot().setStyle("-fx-background-color: #FDFFFE");
         stage.setScene(scene);
         stage.setTitle("Climate Monitoring");
@@ -193,7 +242,10 @@ public class ClimateParameters extends Application {
         }
     }
 
-    public static void main(String[] args) {
-        launch(args);
+    private void changeInLogin(Stage stage) throws Exception {
+        new Login().start(stage);
+    }
+    private void changeInHome(Stage stage) throws Exception {
+        new Home().start(stage);
     }
 }
