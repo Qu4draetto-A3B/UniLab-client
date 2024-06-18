@@ -66,7 +66,7 @@ public class Home extends Application {
         vb.setAlignment(Pos.CENTER);
 
         //SCENA
-        Scene scene = new Scene(vb, 800, 400, Color.WHITE); //scena
+        Scene scene = new Scene(vb, 1000, 1000);
         scene.getRoot().setStyle("-fx-background-color: #FDFFFE");
         stage.setScene(scene); //setta scena
         stage.setTitle("Climate Monitoring");

@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.InputStream;
@@ -95,7 +96,7 @@ public class Operator extends Application {
         vb.setAlignment(Pos.CENTER);
 
         //SCENA
-        Scene scene = new Scene(vb, 800, 400); //scena
+        Scene scene = new Scene(vb, 1000, 1000, Color.WHITE); //scena
         scene.getRoot().setStyle("-fx-background-color: #FDFFFE");
         stage.setScene(scene); //setta scena
         stage.show(); //mostra scena
