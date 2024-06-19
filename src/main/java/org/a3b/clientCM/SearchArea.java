@@ -11,6 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -20,22 +21,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class SearchArea extends Application {
+    private boolean login;
+    public SearchArea(boolean login){
+        this.login = login;
+    }
     //SCHERMATA PER CERCARE E VISUALIZZARE AREA GEOGRAFICA
     @Override
     public void start(Stage stage) {
         //SCHERMATA DI VISUALIZZAIZONE DEI CENTRI ESISTENTI
-        //bottoni con immagini
-        //input per immagini
-        InputStream inhome = getClass().getResourceAsStream("/img/home.png");
-        InputStream inback =  getClass().getResourceAsStream("/img/arrow.png");
-        Image back = new Image(inback);
-        ImageView backView = new ImageView(back);
-        backView.setFitWidth(50);  // Imposta la larghezza desiderata
-        backView.setFitHeight(50); // Imposta l'altezza desiderata
-        backView.setPreserveRatio(true); // Mantiene le proporzioni originali
-        Button backButton = new Button();
-        backButton.setGraphic(backView);
-        backButton.setStyle("-fx-background-color: transparent;"); // Rende trasparente lo sfondo del bottone
+        Pane vb = setButton(stage);
 
 
 
@@ -44,13 +38,7 @@ public class SearchArea extends Application {
         TextField searchField = new TextField();
         searchField.setPromptText("Cerca...");
 
-        backButton.setOnAction(event -> {
-            try {
-                changeInHome(stage);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        });
+
 
         // Creazione della ListView per visualizzare i risultati
         ListView<String> listView = new ListView<>();
@@ -74,7 +62,7 @@ public class SearchArea extends Application {
         });
 
         // Layout principale
-        VBox root = new VBox(10, searchField, listView,backButton);
+        VBox root = new VBox(10, searchField, listView,vb);
         root.setPadding(new Insets(10));
 
         // Creazione della scena
@@ -104,6 +92,20 @@ public class SearchArea extends Application {
                 System.out.println("Elemento selezionato con doppio clic: " + selectedItem);
             }
         }
+    }
+
+    private Pane setButton(Stage stage){
+        VBox vb = new VBox();
+        if(login){
+            Button homeButton = CustomButton.homeButton(stage);
+            Button backButton = CustomButton.backButton(stage,new Operator());
+            vb.getChildren().addAll(homeButton, backButton);
+        } else{
+            Button backButton = CustomButton.backButton(stage,new Home());
+            vb.getChildren().addAll(backButton);
+        }
+
+        return vb;
     }
 
     private void changeInHome(Stage stage) throws Exception {

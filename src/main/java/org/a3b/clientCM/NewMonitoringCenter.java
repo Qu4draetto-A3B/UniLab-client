@@ -7,14 +7,24 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.InputStream;
 
 public class NewMonitoringCenter extends Application {
+
+    private boolean login;
+
+    public NewMonitoringCenter(boolean login) {
+        this.login = login;
+    }
     @Override
     public void start(Stage stage) throws Exception {
+        Pane pane= setButton(stage);
+        Button backButton = CustomButton.backButton(stage,new CenterReg()); //bottone back
+        Button homeButton = CustomButton.homeButton(stage); //bottone home
         //DOPO AVER SCHIACCIATO NUOVO CENTRO DI MONITORAGGIO
         //TUTTI GLI ATTRIBUTI DEL CENTRO DI MONITORAGGIO
         //BOTTONI E TEXTFIELD
@@ -27,26 +37,6 @@ public class NewMonitoringCenter extends Application {
        
         Button enter = new Button("CONFERMA");
         //bottoni con immagini
-        //bottone con immagine Home
-        InputStream inhome = getClass().getResourceAsStream("/img/home.png");
-        Image home = new Image(inhome);
-        ImageView homeView = new ImageView(home);
-        homeView.setFitWidth(50);  // Imposta la larghezza desiderata
-        homeView.setFitHeight(50); // Imposta l'altezza desiderata
-        homeView.setPreserveRatio(true); // Mantiene le proporzioni originali
-        Button homeButton = new Button();
-        homeButton.setGraphic(homeView);
-        homeButton.setStyle("-fx-background-color: transparent;"); // Rende trasparente lo sfondo del bottone
-        //bottone con immagine back
-        InputStream inback =  getClass().getResourceAsStream("/img/arrow.png");
-        Image back = new Image(inback);
-        ImageView backView = new ImageView(back);
-        backView.setFitWidth(50);  // Imposta la larghezza desiderata
-        backView.setFitHeight(50); // Imposta l'altezza desiderata
-        backView.setPreserveRatio(true); // Mantiene le proporzioni originali
-        Button backButton = new Button();
-        backButton.setGraphic(backView);
-        backButton.setStyle("-fx-background-color: transparent;"); // Rende trasparente lo sfondo del bottone
 
 
 
@@ -57,27 +47,12 @@ public class NewMonitoringCenter extends Application {
         civicnumber.setPromptText("INSERISCI NUMEROCIVICO");
         zipcode.setPromptText("INSERISCI ZIPCODE");
 
-        //bottone back
-        backButton.setOnAction(event -> {
-            try {
-                changeInOperatorReg(stage);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        });
 
-        //bottone home
-        homeButton.setOnAction(event -> {
-            try {
-                changeInHome(stage);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        });
+
 
         //VBOX
         VBox vb = new VBox();
-        vb.getChildren().addAll(town,province,street,civicnumber,zipcode,enter,backButton,homeButton);
+        vb.getChildren().addAll(town,province,street,civicnumber,zipcode,enter,pane);
         vb.setAlignment(Pos.CENTER);
 
 
@@ -89,10 +64,17 @@ public class NewMonitoringCenter extends Application {
 
 
     }
-    private void changeInHome(Stage stage) throws Exception {
-        new Home().start(stage);
-    }
-    private void changeInOperatorReg(Stage stage) throws Exception {
-        new CenterReg().start(stage);
+
+    private Pane setButton(Stage stage){
+        VBox vb = new VBox();
+        Button homeButton = CustomButton.homeButton(stage);
+        Button backButton;
+        if(login){
+            backButton = CustomButton.backButton(stage,new Operator()); //bottone back
+        } else{
+            backButton = CustomButton.backButton(stage,new CenterReg());
+        }
+        vb.getChildren().addAll(homeButton, backButton);
+        return vb;
     }
 }

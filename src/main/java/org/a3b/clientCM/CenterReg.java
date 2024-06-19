@@ -20,49 +20,20 @@ public class CenterReg extends Application {
         Button existcenter = new Button("CENTRO DI MONITORAGGIO ESISTENTE");
         Button newcenter = new Button("NUOVO CENTRO DI MONITORAGGIO");
         //bottoni con immagini
+        Button homeButton = CustomButton.homeButton(stage);
+        Button backButton = CustomButton.backButton(stage,new Register());
+
         //bottone con immagine Home
-        InputStream inhome = getClass().getResourceAsStream("/img/home.png");
-        Image home = new Image(inhome);
-        ImageView homeView = new ImageView(home);
-        homeView.setFitWidth(50);  // Imposta la larghezza desiderata
-        homeView.setFitHeight(50); // Imposta l'altezza desiderata
-        homeView.setPreserveRatio(true); // Mantiene le proporzioni originali
-        Button homeButton = new Button();
-        homeButton.setGraphic(homeView);
-        homeButton.setStyle("-fx-background-color: transparent;"); // Rende trasparente lo sfondo del bottone
+
 
 
         //bottone con immagine back
-        InputStream inback =  getClass().getResourceAsStream("/img/arrow.png");
-        Image back = new Image(inback);
-        ImageView backView = new ImageView(back);
-        backView.setFitWidth(50);  // Imposta la larghezza desiderata
-        backView.setFitHeight(50); // Imposta l'altezza desiderata
-        backView.setPreserveRatio(true); // Mantiene le proporzioni originali
-        Button backButton = new Button();
-        backButton.setGraphic(backView);
-        backButton.setStyle("-fx-background-color: transparent;"); // Rende trasparente lo sfondo del bottone
 
 
 
 
-        //bottone back
-        backButton.setOnAction(event -> {
-            try {
-                changeInRegister(stage);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        });
 
-        //bottone home
-        homeButton.setOnAction(event -> {
-            try {
-                changeInHome(stage);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        });
+
 
         //bottone
         newcenter.setOnAction(event -> {
@@ -96,17 +67,9 @@ public class CenterReg extends Application {
     }
 
     private void changeInNewMonitoringCenter(Stage stage) throws Exception  {
-        new NewMonitoringCenter().start(stage);
+        new NewMonitoringCenter(false).start(stage);
     }
     private void changeInExistCenter(Stage stage) throws Exception  {
         new ExistMonitorCenter().start(stage);
     }
-
-    private void changeInHome(Stage stage) throws Exception {
-        new Home().start(stage);
-    }
-    private void changeInRegister(Stage stage) throws Exception {
-        new Register().start(stage);
-    }
-
 }

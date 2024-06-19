@@ -19,15 +19,9 @@ public class Login extends Application {
         //creazione dei bottoni e TextField
         //bottoni con immagini
         //bottone con immagine back
-        InputStream inback =  getClass().getResourceAsStream("/img/arrow.png");
-        Image back = new Image(inback);
-        ImageView backView = new ImageView(back);
-        backView.setFitWidth(50);  // Imposta la larghezza desiderata
-        backView.setFitHeight(50); // Imposta l'altezza desiderata
-        backView.setPreserveRatio(true); // Mantiene le proporzioni originali
-        Button backButton = new Button();
-        backButton.setGraphic(backView);
-        backButton.setStyle("-fx-background-color: transparent;"); // Rende trasparente lo sfondo del bottone
+
+        Button backButton = CustomButton.backButton(stage,new Home());
+
 
 
 
@@ -36,13 +30,7 @@ public class Login extends Application {
         TextField password = new TextField();
 
         //bottone back
-        backButton.setOnAction(event -> {
-            try {
-                changeInHome(stage);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        });
+
 
         //bottone login
         login.setOnAction(event -> {
@@ -69,9 +57,7 @@ public class Login extends Application {
         stage.setScene(scene); //setta scena
         stage.show(); //mostra scena
     }
-    private void changeInHome(Stage stage) throws Exception {
-        new Home().start(stage);
-    }
+
     private void changeInOperator(Stage stage) throws Exception {
         new Operator().start(stage);
     }

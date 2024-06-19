@@ -17,15 +17,7 @@ public class Register extends Application {
     public void start(Stage stage) throws Exception {
         //SCHERMATA DI REGISTRAZIONE CON TUTTI GLI ATTRIBUTI
         //creazione dei bottoni e TextField
-        InputStream inback =  getClass().getResourceAsStream("/img/arrow.png");
-        Image back = new Image(inback);
-        ImageView backView = new ImageView(back);
-        backView.setFitWidth(50);  // Imposta la larghezza desiderata
-        backView.setFitHeight(50); // Imposta l'altezza desiderata
-        backView.setPreserveRatio(true); // Mantiene le proporzioni originali
-        Button backButton = new Button();
-        backButton.setGraphic(backView);
-        backButton.setStyle("-fx-background-color: transparent;"); // Rende trasparente lo sfondo del bottone
+        Button backButton = CustomButton.backButton(stage,new Home());
         Button reg = new Button("REGISTRAZIONE");
 
         TextField userID = new TextField();
@@ -37,13 +29,7 @@ public class Register extends Application {
 
 
         //bottone back
-        backButton.setOnAction(event -> {
-            try {
-                changeInHome(stage);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        });
+
 
         //bottone reg
         reg.setOnAction(event -> {
@@ -85,8 +71,6 @@ public class Register extends Application {
     private void changeInCenterReg(Stage stage) throws Exception {
         new CenterReg().start(stage);
     }
-    private void changeInHome(Stage stage) throws Exception {
-        new Home().start(stage);
-    }
+
 
 }

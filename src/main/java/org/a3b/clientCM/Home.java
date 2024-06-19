@@ -83,6 +83,6 @@ public class Home extends Application {
     }
 
     private void changeInSearch(Stage stage) throws  Exception{
-        new SearchArea().start(stage);
+        new SearchArea(false).start(stage);
     }
 }

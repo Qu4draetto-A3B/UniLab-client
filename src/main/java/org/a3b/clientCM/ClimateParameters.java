@@ -28,46 +28,13 @@ public class ClimateParameters extends Application {
 
     @Override
     public void start(Stage stage) {
-        //bottoni con immagini
-        //bottone con immagine Home
-        InputStream inhome = getClass().getResourceAsStream("/img/home.png");
-        Image home = new Image(inhome);
-        ImageView homeView = new ImageView(home);
-        homeView.setFitWidth(50);  // Imposta la larghezza desiderata
-        homeView.setFitHeight(50); // Imposta l'altezza desiderata
-        homeView.setPreserveRatio(true); // Mantiene le proporzioni originali
-        Button homeButton = new Button();
-        homeButton.setGraphic(homeView);
-        homeButton.setStyle("-fx-background-color: transparent;"); // Rende trasparente lo sfondo del bottone
-        //bottone con immagine back
-        InputStream inback =  getClass().getResourceAsStream("/img/arrow.png");
-        Image back = new Image(inback);
-        ImageView backView = new ImageView(back);
-        backView.setFitWidth(50);  // Imposta la larghezza desiderata
-        backView.setFitHeight(50); // Imposta l'altezza desiderata
-        backView.setPreserveRatio(true); // Mantiene le proporzioni originali
-        Button backButton = new Button();
-        backButton.setGraphic(backView);
-        backButton.setStyle("-fx-background-color: transparent;"); // Rende trasparente lo sfondo del bottone
+
+        Button backButton = CustomButton.backButton(stage,new Operator()); //bottone back
+        Button homeButton = CustomButton.homeButton(stage); //bottone home
 
 
-        //bottone back
-        backButton.setOnAction(event -> {
-            try {
-                changeInLogin(stage);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        });
 
-        //bottone home
-        homeButton.setOnAction(event -> {
-            try {
-                changeInHome(stage);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        });
+
 
 
 
@@ -243,7 +210,7 @@ public class ClimateParameters extends Application {
     }
 
     private void changeInLogin(Stage stage) throws Exception {
-        new Login().start(stage);
+
     }
     private void changeInHome(Stage stage) throws Exception {
         new Home().start(stage);

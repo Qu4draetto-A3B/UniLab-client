@@ -17,49 +17,16 @@ public class ExistMonitorCenter extends Application {
     public void start(Stage stage) throws Exception {
         //SCHERMATA DI VISUALIZZAIZONE DEI CENTRI ESISTENTI
         //bottoni con immagini
+
+        Button homeButton = CustomButton.homeButton(stage);
+        Button backButton = CustomButton.backButton(stage,new CenterReg());
         //bottone con immagine Home
-        InputStream inhome = getClass().getResourceAsStream("/img/home.png");
-        Image home = new Image(inhome);
-        ImageView homeView = new ImageView(home);
-        homeView.setFitWidth(50);  // Imposta la larghezza desiderata
-        homeView.setFitHeight(50); // Imposta l'altezza desiderata
-        homeView.setPreserveRatio(true); // Mantiene le proporzioni originali
-        Button homeButton = new Button();
-        homeButton.setGraphic(homeView);
-        homeButton.setStyle("-fx-background-color: transparent;"); // Rende trasparente lo sfondo del bottone
-
-
-        //bottone con immagine back
-        InputStream inback =  getClass().getResourceAsStream("/img/arrow.png");
-        Image back = new Image(inback);
-        ImageView backView = new ImageView(back);
-        backView.setFitWidth(50);  // Imposta la larghezza desiderata
-        backView.setFitHeight(50); // Imposta l'altezza desiderata
-        backView.setPreserveRatio(true); // Mantiene le proporzioni originali
-        Button backButton = new Button();
-        backButton.setGraphic(backView);
-        backButton.setStyle("-fx-background-color: transparent;"); // Rende trasparente lo sfondo del bottone
 
 
 
 
         //bottone back
-        backButton.setOnAction(event -> {
-            try {
-                changeInCenterReg(stage);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        });
 
-        //bottone home
-        homeButton.setOnAction(event -> {
-            try {
-                changeInHome(stage);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        });
         //VBOX
         VBox vb = new VBox();
         vb.getChildren().addAll(backButton,homeButton);
@@ -73,10 +40,5 @@ public class ExistMonitorCenter extends Application {
         stage.setTitle("Climate Monitoring");
 
     }
-    private void changeInHome(Stage stage) throws Exception {
-        new Home().start(stage);
-    }
-    private void changeInCenterReg(Stage stage) throws Exception {
-        new CenterReg().start(stage);
-    }
+
 }
