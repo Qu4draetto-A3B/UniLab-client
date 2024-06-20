@@ -29,21 +29,16 @@ public class ClimateParameters extends Application {
     @Override
     public void start(Stage stage) {
 
-        Button backButton = CustomButton.backButton(stage,new Operator()); //bottone back
-        Button homeButton = CustomButton.homeButton(stage); //bottone home
-
-
-
-
-
-
-
-
+        Button backButton = CustomButton.backButton(stage,new Operator()); // Bottone back
+        Button homeButton = CustomButton.homeButton(stage); // Bottone home
 
         // Crea il TableView
         TableView<Row> tableView = new TableView<>();
         tableView.setEditable(true); // Abilita la modalità di modifica
         Button buttonOK = new Button("CONFERMA");
+
+        // Imposta la policy di ridimensionamento delle colonne per utilizzare tutto lo spazio disponibile
+        tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
         // Definisci le colonne e associa alle proprietà della classe Row
         TableColumn<Row, String> col1 = new TableColumn<>("PARAMETRO");
@@ -62,12 +57,12 @@ public class ClimateParameters extends Application {
         col2.setMinWidth(300); // Imposta larghezza minima
         col2.setMaxWidth(300); // Imposta larghezza massima
 
+        // La terza colonna deve occupare tutto lo spazio disponibile
         TableColumn<Row, String> col3 = new TableColumn<>("NOTE");
         col3.setCellValueFactory(new PropertyValueFactory<>("col3"));
-        col3.setCellFactory(TextFieldTableCell.forTableColumn()); // permette di scrivere valore
-        col3.setOnEditCommit(event -> event.getRowValue().setCol3(event.getNewValue())); // gestisce la modifica del valore
-        col3.setMinWidth(200); // Imposta larghezza minima
-        col3.setMaxWidth(200); // Imposta larghezza massima
+        col3.setCellFactory(TextFieldTableCell.forTableColumn()); // Permette di scrivere valore
+        col3.setOnEditCommit(event -> event.getRowValue().setCol3(event.getNewValue())); // Gestisce la modifica del valore
+        // Non impostare minWidth o maxWidth per permettere alla colonna di adattarsi
 
         // Aggiungi le colonne al TableView
         tableView.getColumns().addAll(col1, col2, col3);
@@ -86,8 +81,9 @@ public class ClimateParameters extends Application {
         // Imposta le righe nella tabella
         tableView.setItems(data);
 
+
         // Aggiungi il TableView al layout
-        VBox vb = new VBox(10, tableView, buttonOK,backButton,homeButton);
+        VBox vb = new VBox(10, tableView, buttonOK, backButton, homeButton);
         vb.setAlignment(Pos.CENTER);
 
         // Crea la scena e mostra la finestra
@@ -207,12 +203,5 @@ public class ClimateParameters extends Application {
             Circle currentCircle = (Circle) stack.getChildren().get(0);
             currentCircle.setFill(Color.web("#01BFBF"));
         }
-    }
-
-    private void changeInLogin(Stage stage) throws Exception {
-
-    }
-    private void changeInHome(Stage stage) throws Exception {
-        new Home().start(stage);
     }
 }
