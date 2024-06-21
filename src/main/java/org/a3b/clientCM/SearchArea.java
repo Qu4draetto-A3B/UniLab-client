@@ -66,14 +66,7 @@ public class SearchArea extends Application {
         root.setPadding(new Insets(10));
 
         // Creazione della scena
-        Scene scene = new Scene(root, 1000, 1000);
-        scene.getRoot().setStyle("-fx-background-color: #FDFFFE");
-        stage.setScene(scene); //setta scena
-        stage.setTitle("Climate Monitoring");
-
-        // Impostazione della scena sullo Stage
-        stage.setScene(scene);
-        stage.show();
+        Handler.sceneSeteer(stage,root);
     }
 
     private void handleKeyPress(KeyEvent event, ListView<String> listView) {
@@ -108,8 +101,5 @@ public class SearchArea extends Application {
         return vb;
     }
 
-    private void changeInHome(Stage stage) throws Exception {
-        new Home().start(stage);
-    }
 
 }

@@ -59,10 +59,7 @@ public class Register extends Application {
         vb.setAlignment(Pos.CENTER);
 
         //SCENA
-        Scene scene = new Scene(vb, 1000, 1000);
-        scene.getRoot().setStyle("-fx-background-color: #FDFFFE");
-        stage.setScene(scene); //setta scena
-        stage.show(); //mostra scena
+        Handler.sceneSeteer(stage,vb);
 
 
 

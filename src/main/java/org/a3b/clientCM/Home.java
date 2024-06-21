@@ -2,12 +2,10 @@ package org.a3b.clientCM;
 
 import javafx.application.Application;
 import javafx.geometry.*;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.InputStream;
@@ -66,12 +64,8 @@ public class Home extends Application {
         vb.setAlignment(Pos.CENTER);
 
         //SCENA
-        Scene scene = new Scene(vb, 1000, 1000);
-        scene.getRoot().setStyle("-fx-background-color: #FDFFFE");
-        stage.setScene(scene); //setta scena
-        stage.setTitle("Climate Monitoring");
+        Handler.sceneSeteer(stage,vb);
 
-        stage.show(); //mostra scena
     }
 
     private void changeInLogin(Stage stage) throws Exception{
