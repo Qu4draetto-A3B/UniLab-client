@@ -11,6 +11,14 @@
     </properties>
     <dependencies>
         <dependency>
+            <groupId>org.a3b</groupId>
+            <artifactId>serverCM</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${pom.basedir}/src/main/resources/UniLab-server-1.0-shaded.jar</systemPath>
+        </dependency>
+
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.32</version>
