@@ -1,9 +1,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.openjfx</groupId>
+    <groupId>org.a3b.clientCM</groupId>
     <artifactId>UniLab-client</artifactId>
-    <version>1.0.0</version>
+    <version>1.0</version>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>17</maven.compiler.source>
@@ -11,8 +11,8 @@
     </properties>
     <dependencies>
         <dependency>
-            <groupId>org.a3b</groupId>
-            <artifactId>serverCM</artifactId>
+            <groupId>org.a3b.serverCM</groupId>
+            <artifactId>UniLab-server</artifactId>
             <version>1.0</version>
             <scope>system</scope>
             <systemPath>${pom.basedir}/src/main/resources/UniLab-server-1.0-shaded.jar</systemPath>
@@ -56,6 +56,12 @@
             <artifactId>javafx-controls</artifactId>
             <version>17.0.11</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-shade-plugin</artifactId>
+            <version>3.5.3</version>
+            <type>maven-plugin</type>
+        </dependency>
     </dependencies>
 
     <build>
@@ -75,6 +81,25 @@
                 <configuration>
                     <mainClass>org.a3b.clientCM.App</mainClass>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <shadedArtifactAttached>true</shadedArtifactAttached>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>org.a3b.clientCM.App</mainClass>
+                                </transformer>
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
