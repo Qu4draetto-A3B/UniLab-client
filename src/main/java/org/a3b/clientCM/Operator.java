@@ -2,15 +2,9 @@ package org.a3b.clientCM;
 
 import javafx.application.Application;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-
-import java.io.InputStream;
 
 public class Operator extends Application {
     //dopo aver schiacciato il login si apre una pagina con i vari bottoni:
@@ -18,14 +12,13 @@ public class Operator extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         //bottoni con immagini
-        Button backButton = CustomButton.backButton(stage,new Login()); //bottone back
+        Button backButton = CustomButton.backButton(stage, new Login()); //bottone back
         Button homeButton = CustomButton.homeButton(stage); //bottone home
         //bottoni
         Button insertParam = new Button("INSERISCI PARAMETRI");
         Button createNewCenter = new Button("CREA NUOVO CENTRO DI MONITORAGGIO");
         Button viewAree = new Button("VISUALIZZA AREE");
         Button settings = new Button("IMPOSTAZIONI");
-
 
 
         //bottone inserimento parametri
@@ -58,11 +51,11 @@ public class Operator extends Application {
 
         //VBOX
         VBox vb = new VBox();
-        vb.getChildren().addAll(insertParam, createNewCenter, viewAree, settings,backButton,homeButton);
+        vb.getChildren().addAll(insertParam, createNewCenter, viewAree, settings, backButton, homeButton);
         vb.setAlignment(Pos.CENTER);
 
         //SCENA
-        Handler.sceneSeteer(stage,vb);
+        Handler.sceneSetter(stage, vb);
     }
 
     private void changeInSearchAree(Stage stage) throws Exception {
@@ -73,7 +66,7 @@ public class Operator extends Application {
         new ClimateParameters().start(stage);
     }
 
-    private void changeInNewMonitoringCenter (Stage stage) throws Exception{
+    private void changeInNewMonitoringCenter(Stage stage) throws Exception {
         new NewMonitoringCenter(true).start(stage);
     }
 }

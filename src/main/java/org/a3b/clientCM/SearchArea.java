@@ -2,12 +2,9 @@ package org.a3b.clientCM;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -15,16 +12,17 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class SearchArea extends Application {
-    private boolean login;
-    public SearchArea(boolean login){
+    private final boolean login;
+
+    public SearchArea(boolean login) {
         this.login = login;
     }
+
     //SCHERMATA PER CERCARE E VISUALIZZARE AREA GEOGRAFICA
     @Override
     public void start(Stage stage) {
@@ -32,12 +30,9 @@ public class SearchArea extends Application {
         Pane vb = setButton(stage);
 
 
-
-
         // Creazione del campo di testo per la barra di ricerca
         TextField searchField = new TextField();
         searchField.setPromptText("Cerca...");
-
 
 
         // Creazione della ListView per visualizzare i risultati
@@ -62,11 +57,11 @@ public class SearchArea extends Application {
         });
 
         // Layout principale
-        VBox root = new VBox(10, searchField, listView,vb);
+        VBox root = new VBox(10, searchField, listView, vb);
         root.setPadding(new Insets(10));
 
         // Creazione della scena
-        Handler.sceneSeteer(stage,root);
+        Handler.sceneSetter(stage, root);
     }
 
     private void handleKeyPress(KeyEvent event, ListView<String> listView) {
@@ -87,14 +82,14 @@ public class SearchArea extends Application {
         }
     }
 
-    private Pane setButton(Stage stage){
+    private Pane setButton(Stage stage) {
         VBox vb = new VBox();
-        if(login){
+        if (login) {
             Button homeButton = CustomButton.homeButton(stage);
-            Button backButton = CustomButton.backButton(stage,new Operator());
+            Button backButton = CustomButton.backButton(stage, new Operator());
             vb.getChildren().addAll(homeButton, backButton);
-        } else{
-            Button backButton = CustomButton.backButton(stage,new Home());
+        } else {
+            Button backButton = CustomButton.backButton(stage, new Home());
             vb.getChildren().addAll(backButton);
         }
 

@@ -10,16 +10,17 @@ import javafx.scene.layout.HBox;
 import org.a3b.clientCM.resource.RowParametres;
 
 public class ParametersTable {
-    private final static String[] PARAMETRI = {"Vento","Umidità","Pressione","Temperatura","Precipitazioni","Altitudine dei ghiacciai", "Massa dei ghiacciai"};
+    private final static String[] PARAMETRI = {"Vento", "Umidità", "Pressione", "Temperatura", "Precipitazioni", "Altitudine dei ghiacciai", "Massa dei ghiacciai"};
 
     // Creazione della TableView
     TableView<RowParametres> tableView = new TableView<>();
     private ObservableList<RowParametres> data;
-    public ParametersTable(){
 
-        TableColumn<RowParametres,String> parametroCol = new TableColumn<>("PARAMETRO");
+    public ParametersTable() {
+
+        TableColumn<RowParametres, String> parametroCol = new TableColumn<>("PARAMETRO");
         TableColumn<RowParametres, HBox> circleValueCol = new TableColumn<>("VALORI");
-        TableColumn<RowParametres,HBox> noteCol = new TableColumn<>("NOTE");
+        TableColumn<RowParametres, HBox> noteCol = new TableColumn<>("NOTE");
 
 
         parametroCol.setCellValueFactory(new PropertyValueFactory<>("parametro"));
@@ -30,12 +31,17 @@ public class ParametersTable {
         tableView.getColumns().add(circleValueCol);
         tableView.getColumns().add(noteCol);
 
+        tableView.setPrefWidth(800);
+        tableView.setMaxHeight(300);
+        tableView.setMinHeight(250);
+
+
         setTable();
     }
 
-    private void setTable(){
+    private void setTable() {
         data = FXCollections.observableArrayList();
-        for(String str : PARAMETRI){
+        for (String str : PARAMETRI) {
             data.add(new RowParametres(str));
         }
 
@@ -46,19 +52,16 @@ public class ParametersTable {
         return tableView;
     }
 
-    public String getTableParameter(){
+    public String getTableParameter() {
         String str = "";
-        for(RowParametres mis : data){
-            str =str + mis.toString()+"\n";
+        for (RowParametres mis : data) {
+            str = str + mis.toString() + "\n";
         }
 
         return str;
     }
 
     // Creazione delle colonne (con i nomi delle proprietà da visualizzare)
-
-
-
 
 
 }

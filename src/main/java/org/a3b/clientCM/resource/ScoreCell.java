@@ -6,19 +6,18 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import org.a3b.clientCM.ClimateParameters;
 
-public class ScoreCell{
+public class ScoreCell {
 
     private static final String[] INDEX = {"0", "1", "2", "3", "4", "5"};
     private int score = -1;
-    private HBox circlesContainer;
+    private final HBox circlesContainer;
 
     public ScoreCell() {
         circlesContainer = new HBox(10); // Valore della spaziatura tra i cerchi
         // Valore della spaziatura tra gli elementi dle HBox
         circlesContainer.setAlignment(Pos.CENTER);
-        for(int i = 0; i < 6; i++){
+        for (int i = 0; i < 6; i++) {
             circlesContainer.getChildren().add(createBall(INDEX[i], i));
         }
     }
@@ -34,12 +33,12 @@ public class ScoreCell{
 
         StackPane stack = new StackPane();
         stack.getChildren().addAll(ball, label);
-        stack.setOnMouseClicked(event -> handleClick(stack,index));
+        stack.setOnMouseClicked(event -> handleClick(stack, index));
 
         return stack;
     }
 
-    private void handleClick(StackPane stack,int index) {
+    private void handleClick(StackPane stack, int index) {
 
 
         // Cambia il colore del cerchio selezionato
@@ -55,11 +54,13 @@ public class ScoreCell{
         System.out.println(index);
     }
 
-    public int getScore(){return score;}
+    public int getScore() {
+        return score;
+    }
 
-    public HBox getScoreCell(){return circlesContainer;}
-
-
+    public HBox getScoreCell() {
+        return circlesContainer;
+    }
 
 
 }

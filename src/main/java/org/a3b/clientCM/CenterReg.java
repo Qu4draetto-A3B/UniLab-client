@@ -2,14 +2,9 @@ package org.a3b.clientCM;
 
 import javafx.application.Application;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
-import java.io.InputStream;
 
 public class CenterReg extends Application {
     @Override
@@ -21,18 +16,12 @@ public class CenterReg extends Application {
         Button newcenter = new Button("NUOVO CENTRO DI MONITORAGGIO");
         //bottoni con immagini
         Button homeButton = CustomButton.homeButton(stage);
-        Button backButton = CustomButton.backButton(stage,new Register());
+        Button backButton = CustomButton.backButton(stage, new Register());
 
         //bottone con immagine Home
 
 
-
         //bottone con immagine back
-
-
-
-
-
 
 
         //bottone
@@ -54,19 +43,20 @@ public class CenterReg extends Application {
 
         //VBOX
         VBox vb = new VBox();
-        vb.getChildren().addAll(existcenter, newcenter,backButton,homeButton);
+        vb.getChildren().addAll(existcenter, newcenter, backButton, homeButton);
         vb.setAlignment(Pos.CENTER);
 
 
         //SCENA
-        Handler.sceneSeteer(stage,vb); //mostra scena
+        Handler.sceneSetter(stage, vb); //mostra scena
 
     }
 
-    private void changeInNewMonitoringCenter(Stage stage) throws Exception  {
+    private void changeInNewMonitoringCenter(Stage stage) throws Exception {
         new NewMonitoringCenter(false).start(stage);
     }
-    private void changeInExistCenter(Stage stage) throws Exception  {
+
+    private void changeInExistCenter(Stage stage) throws Exception {
         new ExistMonitorCenter().start(stage);
     }
 }

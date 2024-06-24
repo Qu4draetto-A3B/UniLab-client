@@ -2,22 +2,17 @@ package org.a3b.clientCM;
 
 import javafx.application.Application;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
-import java.io.InputStream;
 
 public class Register extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         //SCHERMATA DI REGISTRAZIONE CON TUTTI GLI ATTRIBUTI
         //creazione dei bottoni e TextField
-        Button backButton = CustomButton.backButton(stage,new Home());
+        Button backButton = CustomButton.backButton(stage, new Home());
         Button reg = new Button("REGISTRAZIONE");
 
         TextField userID = new TextField();
@@ -55,16 +50,15 @@ public class Register extends Application {
         //---------------------------------------------------------------------------------------------------------------
         //VBOX
         VBox vb = new VBox();
-        vb.getChildren().addAll(userID,name,surname,CF,email,password,reg,backButton);
+        vb.getChildren().addAll(userID, name, surname, CF, email, password, reg, backButton);
         vb.setAlignment(Pos.CENTER);
 
         //SCENA
-        Handler.sceneSeteer(stage,vb);
-
-
+        Handler.sceneSetter(stage, vb);
 
 
     }
+
     private void changeInCenterReg(Stage stage) throws Exception {
         new CenterReg().start(stage);
     }

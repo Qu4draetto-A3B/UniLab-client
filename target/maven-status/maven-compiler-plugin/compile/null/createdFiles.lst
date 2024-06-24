@@ -11,4 +11,5 @@ org\a3b\clientCM\Home.class
 org\a3b\clientCM\NewMonitoringCenter.class
 org\a3b\clientCM\CustomButton.class
 org\a3b\clientCM\Operator.class
+org\a3b\clientCM\resource\Controller.class
 org\a3b\clientCM\SearchArea.class

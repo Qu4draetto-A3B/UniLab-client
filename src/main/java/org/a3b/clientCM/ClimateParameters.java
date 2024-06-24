@@ -19,16 +19,14 @@ public class ClimateParameters extends Application {
         ParametersTable pt = new ParametersTable();
         TableView<RowParametres> tv = pt.getTableView();
         Button b = new Button("Invio");
-        VBox vb = new VBox(tv,b,backButton,homeButton);
-        b.setOnAction(event ->{
+        VBox vb = new VBox(tv, b, backButton, homeButton);
+        b.setOnAction(event -> {
             String str = pt.getTableParameter();
             System.out.println(str);
 
         });
 
-        Handler.sceneSeteer(stage,vb);
-
-
+        Handler.sceneSetter(stage, vb);
 
 
     }

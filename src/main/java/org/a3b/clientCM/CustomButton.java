@@ -12,8 +12,7 @@ import java.io.InputStream;
 public class CustomButton {
 
 
-
-    public static Button homeButton(Stage stage){
+    public static Button homeButton(Stage stage) {
 
         ImageView homeView = getImage("/img/home.png");
 
@@ -31,7 +30,7 @@ public class CustomButton {
         return button;
     }
 
-    public static Button backButton(Stage stage, Application screen){
+    public static Button backButton(Stage stage, Application screen) {
 
         ImageView homeView = getImage("/img/arrow.png");
 
@@ -49,7 +48,7 @@ public class CustomButton {
         return button;
     }
 
-    public static ImageView getImage(String imagePath){
+    public static ImageView getImage(String imagePath) {
         InputStream imageStream = CustomButton.class.getResourceAsStream(imagePath);
         Image home = new Image(imageStream);
         ImageView homeView = new ImageView(home);

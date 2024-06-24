@@ -1,7 +1,7 @@
 package org.a3b.clientCM;
 
 import javafx.application.Application;
-import javafx.geometry.*;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -24,7 +24,7 @@ public class Home extends Application {
         imageViewLogo.setFitWidth(side); //larghezza
         imageViewLogo.setFitHeight(side); //altezza
 
-        Button search=new Button("VISUALIZZA AREA");
+        Button search = new Button("VISUALIZZA AREA");
         Button reg = new Button("REGISTRAZIONE");
         Button login = new Button("LOGIN");
 
@@ -54,29 +54,26 @@ public class Home extends Application {
         });
 
 
-
-
-
         //VBOX
         VBox vb = new VBox();
         vb.getChildren().add(imageViewLogo);
-        vb.getChildren().addAll(search,reg,login);
+        vb.getChildren().addAll(search, reg, login);
         vb.setAlignment(Pos.CENTER);
 
         //SCENA
-        Handler.sceneSeteer(stage,vb);
+        Handler.sceneSetter(stage, vb);
 
     }
 
-    private void changeInLogin(Stage stage) throws Exception{
+    private void changeInLogin(Stage stage) throws Exception {
         new Login().start(stage);
     }
 
-    private void changeInOperator(Stage stage) throws  Exception {
+    private void changeInOperator(Stage stage) throws Exception {
         new Register().start(stage);
     }
 
-    private void changeInSearch(Stage stage) throws  Exception{
+    private void changeInSearch(Stage stage) throws Exception {
         new SearchArea(false).start(stage);
     }
 }

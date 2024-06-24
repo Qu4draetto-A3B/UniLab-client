@@ -2,15 +2,10 @@ package org.a3b.clientCM;
 
 import javafx.application.Application;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
-import java.io.InputStream;
 
 public class Login extends Application {
     @Override
@@ -20,9 +15,7 @@ public class Login extends Application {
         //bottoni con immagini
         //bottone con immagine back
 
-        Button backButton = CustomButton.backButton(stage,new Home());
-
-
+        Button backButton = CustomButton.backButton(stage, new Home());
 
 
         Button login = new Button("LOGIN");
@@ -46,13 +39,12 @@ public class Login extends Application {
         password.setPromptText("INSERISCI PASSWORD");
 
 
-
         VBox vb = new VBox();
-        vb.getChildren().addAll(userID,password,login,backButton);
+        vb.getChildren().addAll(userID, password, login, backButton);
         vb.setAlignment(Pos.CENTER);
 
         //SCENA
-        Handler.sceneSeteer(stage,vb);
+        Handler.sceneSetter(stage, vb);
     }
 
     private void changeInOperator(Stage stage) throws Exception {

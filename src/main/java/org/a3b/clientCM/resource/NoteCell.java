@@ -7,18 +7,18 @@ import javafx.scene.layout.HBox;
 
 public class NoteCell {
     private String text = "";
-    private TextField textField;
-    private Label invisibleLabel = new Label();
+    private final TextField textField;
+    private final Label invisibleLabel = new Label();
     private HBox noteContainer;
 
 
-    public NoteCell(){
+    public NoteCell() {
         textField = new TextField(text);
         setHandler();
         setHB();
     }
 
-    private void setHandler(){
+    private void setHandler() {
 
         textField.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
@@ -36,17 +36,21 @@ public class NoteCell {
         });
     }
 
-    private void setHB(){
+    private void setHB() {
         noteContainer = new HBox();
         invisibleLabel.setPrefSize(0, 0);
         invisibleLabel.setStyle("-fx-background-color: transparent;");
-        noteContainer.getChildren().addAll(textField,invisibleLabel);
+        noteContainer.getChildren().addAll(textField, invisibleLabel);
         noteContainer.setAlignment(Pos.CENTER);
     }
 
-    public HBox getNoteCell(){return noteContainer;}
+    public HBox getNoteCell() {
+        return noteContainer;
+    }
 
-    public String getText(){return text;}
+    public String getText() {
+        return text;
+    }
 
 
 }

@@ -2,28 +2,24 @@ package org.a3b.clientCM;
 
 import javafx.application.Application;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.io.InputStream;
-
 public class NewMonitoringCenter extends Application {
 
-    private boolean login;
+    private final boolean login;
 
     public NewMonitoringCenter(boolean login) {
         this.login = login;
     }
+
     @Override
     public void start(Stage stage) throws Exception {
-        Pane pane= setButton(stage);
-        Button backButton = CustomButton.backButton(stage,new CenterReg()); //bottone back
+        Pane pane = setButton(stage);
+        Button backButton = CustomButton.backButton(stage, new CenterReg()); //bottone back
         Button homeButton = CustomButton.homeButton(stage); //bottone home
         //DOPO AVER SCHIACCIATO NUOVO CENTRO DI MONITORAGGIO
         //TUTTI GLI ATTRIBUTI DEL CENTRO DI MONITORAGGIO
@@ -34,10 +30,9 @@ public class NewMonitoringCenter extends Application {
         TextField zipcode = new TextField();
         TextField town = new TextField();
         TextField province = new TextField();
-       
+
         Button enter = new Button("CONFERMA");
         //bottoni con immagini
-
 
 
         //SET TEXTFIELD
@@ -48,27 +43,25 @@ public class NewMonitoringCenter extends Application {
         zipcode.setPromptText("INSERISCI ZIPCODE");
 
 
-
-
         //VBOX
         VBox vb = new VBox();
-        vb.getChildren().addAll(town,province,street,civicnumber,zipcode,enter,pane);
+        vb.getChildren().addAll(town, province, street, civicnumber, zipcode, enter, pane);
         vb.setAlignment(Pos.CENTER);
 
 
         //SCENA
-        Handler.sceneSeteer(stage,vb);
+        Handler.sceneSetter(stage, vb);
 
     }
 
-    private Pane setButton(Stage stage){
+    private Pane setButton(Stage stage) {
         VBox vb = new VBox();
         Button homeButton = CustomButton.homeButton(stage);
         Button backButton;
-        if(login){
-            backButton = CustomButton.backButton(stage,new Operator()); //bottone back
-        } else{
-            backButton = CustomButton.backButton(stage,new CenterReg());
+        if (login) {
+            backButton = CustomButton.backButton(stage, new Operator()); //bottone back
+        } else {
+            backButton = CustomButton.backButton(stage, new CenterReg());
         }
         vb.getChildren().addAll(homeButton, backButton);
         return vb;
