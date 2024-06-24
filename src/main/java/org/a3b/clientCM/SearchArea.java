@@ -11,7 +11,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.a3b.commons.magazzeno.AreaGeografica;
+import org.a3b.commons.magazzeno.ListaAree;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,7 +28,7 @@ public class SearchArea extends Application {
 
     //SCHERMATA PER CERCARE E VISUALIZZARE AREA GEOGRAFICA
     @Override
-    public void start(Stage stage) {
+    public void start(Stage stage) throws RemoteException {
         //SCHERMATA DI VISUALIZZAIZONE DEI CENTRI ESISTENTI
         Pane vb = setButton(stage);
 
@@ -36,6 +39,7 @@ public class SearchArea extends Application {
 
 
         // Creazione della ListView per visualizzare i risultati
+        ListaAree list = App.server.getAreeGeografiche().get();
         ListView<String> listView = new ListView<>();
         listView.setOnKeyPressed(event -> handleKeyPress(event, listView));
         listView.setOnMouseClicked(event -> handleClick(event, listView));
@@ -43,8 +47,8 @@ public class SearchArea extends Application {
 
         // Lista di esempio (puoi sostituirla con dati reali)
         List<String> items = new ArrayList<>();
-        for (int i = 1; i <= 100; i++) {
-            items.add("Elemento " + i);
+        for(AreaGeografica ag : list){
+            items.add(ag.toString());
         }
 
         // Aggiungi un listener alla proprietà textProperty del TextField
