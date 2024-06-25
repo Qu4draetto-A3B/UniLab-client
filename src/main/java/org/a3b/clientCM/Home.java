@@ -38,34 +38,15 @@ public class Home extends Application {
         imageViewLogo.setFitWidth(side); //larghezza
         imageViewLogo.setFitHeight(side); //altezza
 
+        //Creazione button
         Button search = new Button("VISUALIZZA AREA");
         Button reg = new Button("REGISTRAZIONE");
         Button login = new Button("LOGIN");
 
-        //SETTAGGIO bottoni e TextField
 
-        search.setOnAction(event -> {
-            try {
-                changeInSearch(stage);
-            } catch (Exception e) {
-                System.out.println("errore: bottone login evento");
-            }
-        });
-        reg.setOnAction(event -> {
-            try {
-                changeInOperator(stage);
-            } catch (Exception e) {
-                System.out.println("errore: bottone reg evento");
-            }
-        });
-
-        login.setOnAction(event -> {
-            try {
-                changeInLogin(stage);
-            } catch (Exception e) {
-                System.out.println("errore: bottone login evento");
-            }
-        });
+        search.setOnAction(event -> Handler.sceneChanger(stage,new SearchArea()));
+        reg.setOnAction(event -> Handler.sceneChanger(stage,new Register()));
+        login.setOnAction(event -> Handler.sceneChanger(stage, new Login()));
 
 
         //VBOX
@@ -79,15 +60,4 @@ public class Home extends Application {
 
     }
 
-    private void changeInLogin(Stage stage) throws Exception {
-        new Login().start(stage);
-    }
-
-    private void changeInOperator(Stage stage) throws Exception {
-        new Register().start(stage);
-    }
-
-    private void changeInSearch(Stage stage) throws Exception {
-        new SearchArea(false).start(stage);
-    }
 }

@@ -75,6 +75,7 @@ public class ParametersTable {
         return str;
     }
 
+
     // Creazione delle colonne (con i nomi delle proprietà da visualizzare)
 
 

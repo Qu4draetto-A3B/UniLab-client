@@ -24,11 +24,6 @@ import javafx.stage.Stage;
 
 public class NewMonitoringCenter extends Application {
 
-    private final boolean login;
-
-    public NewMonitoringCenter(boolean login) {
-        this.login = login;
-    }
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -70,14 +65,14 @@ public class NewMonitoringCenter extends Application {
 
     private Pane setButton(Stage stage) {
         VBox vb = new VBox();
-        Button homeButton = CustomButton.homeButton(stage);
         Button backButton;
-        if (login) {
-            backButton = CustomButton.backButton(stage, new Operator()); //bottone back
+        if (App.operatore != null) {
+            backButton = CustomButton.backButton(stage, new Operator());
         } else {
-            backButton = CustomButton.backButton(stage, new CenterReg());
+            backButton = CustomButton.backButton(stage, new Home());
         }
-        vb.getChildren().addAll(homeButton, backButton);
+        vb.getChildren().addAll(backButton);
+
         return vb;
     }
 }

@@ -14,8 +14,10 @@
  */
 package org.a3b.clientCM;
 
+import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 public class Handler {
@@ -26,6 +28,14 @@ public class Handler {
         stage.setScene(scene); //setta scena
         stage.setTitle("Climate Monitoring");
         stage.show(); //mostra scena
+    }
+
+    public static void sceneChanger(Stage stage, Application screen){
+        try{
+            screen.start(stage);
+        } catch(Exception e){
+
+        }
     }
 
 

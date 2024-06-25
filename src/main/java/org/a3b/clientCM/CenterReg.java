@@ -32,28 +32,10 @@ public class CenterReg extends Application {
         Button homeButton = CustomButton.homeButton(stage);
         Button backButton = CustomButton.backButton(stage, new Register());
 
-        //bottone con immagine Home
-
-
-        //bottone con immagine back
-
-
         //bottone
-        newcenter.setOnAction(event -> {
-            try {
-                changeInNewMonitoringCenter(stage);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        });
+        newcenter.setOnAction(event -> Handler.sceneChanger(stage, new NewMonitoringCenter()));
 
-        existcenter.setOnAction(event -> {
-            try {
-                changeInExistCenter(stage);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        });
+        existcenter.setOnAction(event -> Handler.sceneChanger(stage, new ExistMonitorCenter()));
 
         //VBOX
         VBox vb = new VBox();
@@ -66,11 +48,6 @@ public class CenterReg extends Application {
 
     }
 
-    private void changeInNewMonitoringCenter(Stage stage) throws Exception {
-        new NewMonitoringCenter(false).start(stage);
-    }
 
-    private void changeInExistCenter(Stage stage) throws Exception {
-        new ExistMonitorCenter().start(stage);
-    }
+
 }
