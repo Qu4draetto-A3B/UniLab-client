@@ -8,18 +8,18 @@ import javafx.stage.Stage;
 import org.a3b.clientCM.resource.RowParametres;
 
 public class ClimateParameters extends Application {
-
+//Classe utilizzata per creare una misuraziore relaztiva ad una area geografica
     @Override
     public void start(Stage stage) {
 
         Button backButton = CustomButton.backButton(stage, new Operator()); // Bottone back
-        Button homeButton = CustomButton.homeButton(stage); // Bottone home
 
         // Crea il TableView
         ParametersTable pt = new ParametersTable();
         TableView<RowParametres> tv = pt.getTableView();
         Button b = new Button("Invio");
-        VBox vb = new VBox(tv, b, backButton, homeButton);
+        VBox vb = new VBox(tv, b, backButton);
+
         b.setOnAction(event -> {
             String str = pt.getTableParameter();
             System.out.println(str);

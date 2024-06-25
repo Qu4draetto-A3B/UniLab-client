@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.a3b.clientCM.resource.Controller;
 import org.a3b.commons.magazzeno.Operatore;
 
 import java.rmi.RemoteException;
@@ -22,7 +23,7 @@ public class Login extends Application {
         Button backButton = CustomButton.backButton(stage, new Home());
 
 
-        Button login = new Button("LOGIN");
+        Button login = new Button("ACCEDI");
         TextField userID = new TextField();
         TextField password = new TextField();
         Label userLabel = new Label();
@@ -34,14 +35,11 @@ public class Login extends Application {
         //bottone login
         login.setOnAction(event -> {
             try {
-                if(isLong(userID.getText())) {
-                    long userIdLong = Long.parseLong(userID.getText());
-                    if (isOperatore(userIdLong,password.getText())) {
-                        changeInOperator(stage);
-                    }
+                if(Controller.operatorControl(userID.getText(), password.getText())) {
+                    changeInOperator(stage);
+                } else {
+                    userLabel.setText("Password o UserID errati");
                 }
-
-                userLabel.setText("Invalid username or password");
 
             } catch (Exception e) {
                 throw new RuntimeException(e);
@@ -55,39 +53,19 @@ public class Login extends Application {
 
         VBox vb = new VBox();
         vb.getChildren().addAll(userID, password, userLabel, login, backButton);
+
         vb.setAlignment(Pos.CENTER);
+
 
         //SCENA
         Handler.sceneSetter(stage, vb);
-        login.requestFocus();
+        userLabel.requestFocus();
     }
 
     private void changeInOperator(Stage stage) throws Exception {
         new Operator().start(stage);
     }
 
-    public static boolean isLong(String s) {
-        if (s == null || s.isEmpty()) {
-            return false;
-        }
-        try {
-            Long.parseLong(s);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
 
-    public static boolean isOperatore(Long userId,String password) {
-        if (password == null || password.isEmpty()) {
-            return false;
-        }
-        try {
-            App.server.login(userId,password).get();
-            return true;
-        } catch (RemoteException e) {
-            return false;
-        }
-    }
 
 }

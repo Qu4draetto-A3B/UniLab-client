@@ -12,14 +12,13 @@ public class Operator extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         //bottoni con immagini
-        Button backButton = CustomButton.backButton(stage, new Login()); //bottone back
-        Button homeButton = CustomButton.homeButton(stage); //bottone home
+
         //bottoni
         Button insertParam = new Button("INSERISCI PARAMETRI");
         Button createNewCenter = new Button("CREA NUOVO CENTRO DI MONITORAGGIO");
         Button viewAree = new Button("VISUALIZZA AREE");
         Button settings = new Button("IMPOSTAZIONI");
-
+        Button exit = new Button("ESCI");
 
         //bottone inserimento parametri
         insertParam.setOnAction(event -> {
@@ -29,7 +28,14 @@ public class Operator extends Application {
                 throw new RuntimeException(e);
             }
         });
-
+        exit.setOnAction(event ->{
+            App.operatore = null;
+            try {
+                new Home().start(stage);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
         //botton visualizza aree
         viewAree.setOnAction(event -> {
             try {
@@ -51,7 +57,7 @@ public class Operator extends Application {
 
         //VBOX
         VBox vb = new VBox();
-        vb.getChildren().addAll(insertParam, createNewCenter, viewAree, settings, backButton, homeButton);
+        vb.getChildren().addAll(insertParam, createNewCenter, viewAree, settings, exit);
         vb.setAlignment(Pos.CENTER);
 
         //SCENA
@@ -59,7 +65,7 @@ public class Operator extends Application {
     }
 
     private void changeInSearchAree(Stage stage) throws Exception {
-        new SearchArea(true).start(stage);
+        new SearchArea().start(stage);
     }
 
     private void changeInInsertParam(Stage stage) throws Exception {
@@ -67,6 +73,6 @@ public class Operator extends Application {
     }
 
     private void changeInNewMonitoringCenter(Stage stage) throws Exception {
-        new NewMonitoringCenter(true).start(stage);
+        new NewMonitoringCenter().start(stage);
     }
 }

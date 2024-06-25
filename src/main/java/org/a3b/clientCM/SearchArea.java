@@ -20,11 +20,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class SearchArea extends Application {
-    private final boolean login;
-
-    public SearchArea(boolean login) {
-        this.login = login;
-    }
 
     //SCHERMATA PER CERCARE E VISUALIZZARE AREA GEOGRAFICA
     @Override
@@ -88,14 +83,13 @@ public class SearchArea extends Application {
 
     private Pane setButton(Stage stage) {
         VBox vb = new VBox();
-        if (login) {
-            Button homeButton = CustomButton.homeButton(stage);
-            Button backButton = CustomButton.backButton(stage, new Operator());
-            vb.getChildren().addAll(homeButton, backButton);
+        Button backButton;
+        if (App.operatore != null) {
+            backButton = CustomButton.backButton(stage, new Operator());
         } else {
-            Button backButton = CustomButton.backButton(stage, new Home());
-            vb.getChildren().addAll(backButton);
+            backButton = CustomButton.backButton(stage, new Home());
         }
+        vb.getChildren().addAll(backButton);
 
         return vb;
     }

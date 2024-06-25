@@ -19,13 +19,7 @@ public class CustomButton {
         Button button = new Button();
         button.setGraphic(homeView);
         button.setStyle("-fx-background-color: transparent;");
-        button.setOnAction(event -> {
-            try {
-                new Home().start(stage);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        });
+        button.setOnAction(event -> Handler.sceneChanger(stage, new Home()));
 
         return button;
     }
@@ -37,13 +31,7 @@ public class CustomButton {
         Button button = new Button();
         button.setGraphic(homeView);
         button.setStyle("-fx-background-color: transparent;");
-        button.setOnAction(event -> {
-            try {
-                screen.start(stage);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        });
+        button.setOnAction(event -> Handler.sceneChanger(stage, screen));
 
         return button;
     }
