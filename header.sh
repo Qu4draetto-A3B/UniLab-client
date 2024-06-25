@@ -1,3 +1,8 @@
+#!/usr/bin/env sh
+
+list=$(find ./src -type f -name '*.java')
+
+text=$(cat <<EOF
 /*
  * Interdisciplinary Workshop B
  * Climate Monitoring
@@ -12,16 +17,17 @@
  * Some rights reserved.
  * See LICENSE file for additional information.
  */
-package org.a3b.clientCM;
+EOF
+)
 
-public class SystemInfo {
+tmp=$(mktemp)
 
-    public static String javaVersion() {
-        return System.getProperty("java.version");
-    }
+for file in $list
+do
+  [ "$(head -1 $file)" = "/*" ] && continue
+  echo "$text" > $tmp
+  cat "$file" >> $tmp
+  cat "$tmp" > $file
+done
 
-    public static String javafxVersion() {
-        return System.getProperty("javafx.version");
-    }
-
-}
+rm "$tmp"
