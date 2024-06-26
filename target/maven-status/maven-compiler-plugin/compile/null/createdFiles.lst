@@ -1,4 +1,5 @@
 org\a3b\clientCM\Handler.class
+org\a3b\clientCM\SelectArea.class
 org\a3b\clientCM\CenterReg.class
 org\a3b\clientCM\Login.class
 org\a3b\clientCM\SystemInfo.class

@@ -34,6 +34,7 @@ public class SearchArea extends Application {
 
 
         // Creazione della ListView per visualizzare i risultati
+
         ListaAree list = App.server.getAreeGeografiche().get();
         ListView<String> listView = new ListView<>();
         listView.setOnKeyPressed(event -> handleKeyPress(event, listView));

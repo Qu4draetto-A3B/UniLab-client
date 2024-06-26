@@ -3,11 +3,9 @@ package org.a3b.clientCM.resource;
 import org.a3b.clientCM.App;
 import org.a3b.commons.magazzeno.Operatore;
 
-import java.rmi.RemoteException;
-
 public class Controller{
 
-    public static boolean operatorControl(String userID, String password){
+    public static boolean loginControl(String userID, String password){
         try {
             if(isLong(userID)) {
                 long userIdLong = Long.parseLong(userID);

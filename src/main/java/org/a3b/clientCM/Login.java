@@ -8,9 +8,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.a3b.clientCM.resource.Controller;
-import org.a3b.commons.magazzeno.Operatore;
-
-import java.rmi.RemoteException;
 
 public class Login extends Application {
     @Override
@@ -35,7 +32,7 @@ public class Login extends Application {
         //bottone login
         login.setOnAction(event -> {
             try {
-                if(Controller.operatorControl(userID.getText(), password.getText())) {
+                if(Controller.loginControl(userID.getText(), password.getText())) {
                     changeInOperator(stage);
                 } else {
                     userLabel.setText("Password o UserID errati");

@@ -10,27 +10,27 @@ import javafx.stage.Stage;
 
 public class NewMonitoringCenter extends Application {
 
+    private TextField name = new TextField();
+    private TextField street = new TextField();
+    private TextField civicnumber = new TextField();
+    private TextField zipcode = new TextField();
+    private TextField town = new TextField();
+    private TextField province = new TextField();
 
     @Override
     public void start(Stage stage) throws Exception {
         Pane pane = setButton(stage);
-        Button backButton = CustomButton.backButton(stage, new CenterReg()); //bottone back
-        Button homeButton = CustomButton.homeButton(stage); //bottone home
         //DOPO AVER SCHIACCIATO NUOVO CENTRO DI MONITORAGGIO
         //TUTTI GLI ATTRIBUTI DEL CENTRO DI MONITORAGGIO
         //BOTTONI E TEXTFIELD
-        TextField name = new TextField();
-        TextField street = new TextField();
-        TextField civicnumber = new TextField();
-        TextField zipcode = new TextField();
-        TextField town = new TextField();
-        TextField province = new TextField();
+
 
         Button enter = new Button("CONFERMA");
         //bottoni con immagini
 
 
         //SET TEXTFIELD
+        name.setPromptText("INSERISCI NOME CENTRO");
         town.setPromptText("INSERISCI CITTA");
         province.setPromptText("INSERISCI PROVINCIA");
         street.setPromptText("INSERISCI STRADA");
@@ -40,7 +40,7 @@ public class NewMonitoringCenter extends Application {
 
         //VBOX
         VBox vb = new VBox();
-        vb.getChildren().addAll(town, province, street, civicnumber, zipcode, enter, pane);
+        vb.getChildren().addAll(name,town, province, street, civicnumber, zipcode, pane);
         vb.setAlignment(Pos.CENTER);
 
 
@@ -52,12 +52,22 @@ public class NewMonitoringCenter extends Application {
     private Pane setButton(Stage stage) {
         VBox vb = new VBox();
         Button backButton;
+        Button button = new Button();
         if (App.operatore != null) {
             backButton = CustomButton.backButton(stage, new Operator());
+            button.setText("CREA CENTRO");
+
         } else {
             backButton = CustomButton.backButton(stage, new Home());
+            button.setText("REGISTRATI");
+            button.setOnAction(event -> {
+                String[] tmp = {name.getText(),street.getText(), civicnumber.getText(), zipcode.getText(), town.getText(),province.getText()};
+                Handler.setTmpCentro(tmp);
+                System.out.println(Handler.tmpCentro.toString());
+                Handler.sceneChanger(stage,new SelectArea());
+            });
         }
-        vb.getChildren().addAll(backButton);
+        vb.getChildren().addAll(backButton,button);
 
         return vb;
     }
