@@ -19,6 +19,8 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.a3b.clientCM.resource.CustomButton;
+import org.a3b.clientCM.resource.SceneHandler;
 
 public class CenterReg extends Application {
     @Override
@@ -33,9 +35,9 @@ public class CenterReg extends Application {
         Button backButton = CustomButton.backButton(stage, new Register());
 
         //bottone
-        newcenter.setOnAction(event -> Handler.sceneChanger(stage, new NewMonitoringCenter()));
+        newcenter.setOnAction(event -> SceneHandler.sceneChanger(stage, new NewMonitoringCenter()));
 
-        existcenter.setOnAction(event -> Handler.sceneChanger(stage, new ExistMonitorCenter()));
+        existcenter.setOnAction(event -> SceneHandler.sceneChanger(stage, new ExistMonitorCenter()));
 
         //VBOX
         VBox vb = new VBox();
@@ -44,7 +46,7 @@ public class CenterReg extends Application {
 
 
         //SCENA
-        Handler.sceneSetter(stage, vb); //mostra scena
+        SceneHandler.sceneSetter(stage, vb); //mostra scena
 
     }
 

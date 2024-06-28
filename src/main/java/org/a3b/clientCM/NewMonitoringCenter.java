@@ -21,6 +21,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.a3b.clientCM.resource.CustomButton;
+import org.a3b.clientCM.resource.RegisterHandler;
+import org.a3b.clientCM.resource.SceneHandler;
 
 public class NewMonitoringCenter extends Application {
 
@@ -59,7 +62,7 @@ public class NewMonitoringCenter extends Application {
 
 
         //SCENA
-        Handler.sceneSetter(stage, vb);
+        SceneHandler.sceneSetter(stage, vb);
 
     }
 
@@ -76,9 +79,9 @@ public class NewMonitoringCenter extends Application {
             button.setText("REGISTRATI");
             button.setOnAction(event -> {
                 String[] tmp = {name.getText(),street.getText(), civicnumber.getText(), zipcode.getText(), town.getText(),province.getText()};
-                Handler.setTmpCentro(tmp);
-                System.out.println(Handler.tmpCentro.toString());
-                Handler.sceneChanger(stage,new SelectArea());
+                RegisterHandler.setTmpCentro(tmp);
+                System.out.println(RegisterHandler.tmpCentro.toString());
+                SceneHandler.sceneChanger(stage,new SelectArea());
             });
         }
         vb.getChildren().addAll(backButton,button);

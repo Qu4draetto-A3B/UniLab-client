@@ -19,6 +19,8 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.a3b.clientCM.resource.CustomButton;
+import org.a3b.clientCM.resource.SceneHandler;
 
 public class ExistMonitorCenter extends Application {
     @Override
@@ -40,7 +42,7 @@ public class ExistMonitorCenter extends Application {
 
 
         //SCENA
-        Handler.sceneSetter(stage, vb);
+        SceneHandler.sceneSetter(stage, vb);
     }
 
 }

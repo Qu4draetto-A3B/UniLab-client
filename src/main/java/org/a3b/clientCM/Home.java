@@ -21,6 +21,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.a3b.clientCM.resource.SceneHandler;
 
 import java.io.InputStream;
 
@@ -44,9 +45,9 @@ public class Home extends Application {
         Button login = new Button("LOGIN");
 
 
-        search.setOnAction(event -> Handler.sceneChanger(stage,new SearchArea()));
-        reg.setOnAction(event -> Handler.sceneChanger(stage,new Register()));
-        login.setOnAction(event -> Handler.sceneChanger(stage, new Login()));
+        search.setOnAction(event -> SceneHandler.sceneChanger(stage,new SearchArea()));
+        reg.setOnAction(event -> SceneHandler.sceneChanger(stage,new Register()));
+        login.setOnAction(event -> SceneHandler.sceneChanger(stage, new Login()));
 
 
         //VBOX
@@ -56,7 +57,7 @@ public class Home extends Application {
         vb.setAlignment(Pos.CENTER);
 
         //SCENA
-        Handler.sceneSetter(stage, vb);
+        SceneHandler.sceneSetter(stage, vb);
 
     }
 

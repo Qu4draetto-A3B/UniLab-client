@@ -22,6 +22,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.a3b.clientCM.resource.Controller;
+import org.a3b.clientCM.resource.CustomButton;
+import org.a3b.clientCM.resource.SceneHandler;
 
 public class Login extends Application {
     @Override
@@ -69,7 +71,7 @@ public class Login extends Application {
 
 
         //SCENA
-        Handler.sceneSetter(stage, vb);
+        SceneHandler.sceneSetter(stage, vb);
         userLabel.requestFocus();
     }
 

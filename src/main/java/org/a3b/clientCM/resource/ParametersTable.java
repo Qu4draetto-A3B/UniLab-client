@@ -12,7 +12,7 @@
  * Some rights reserved.
  * See LICENSE file for additional information.
  */
-package org.a3b.clientCM;
+package org.a3b.clientCM.resource;
 
 
 import javafx.collections.FXCollections;
@@ -21,7 +21,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
-import org.a3b.clientCM.resource.RowParametres;
 
 public class ParametersTable {
     private final static String[] PARAMETRI = {"Vento", "Umidità", "Pressione", "Temperatura", "Precipitazioni", "Altitudine dei ghiacciai", "Massa dei ghiacciai"};

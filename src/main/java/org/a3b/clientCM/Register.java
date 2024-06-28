@@ -21,6 +21,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.a3b.clientCM.resource.*;
 import org.a3b.commons.magazzeno.Operatore;
 
 public class Register extends Application {
@@ -28,6 +29,7 @@ public class Register extends Application {
     public void start(Stage stage) throws Exception {
         //SCHERMATA DI REGISTRAZIONE CON TUTTI GLI ATTRIBUTI
         //creazione dei bottoni e TextField
+        Label invisibleLabel = new Label();
         TextField name = new TextField();
         TextField surname = new TextField();
         TextField CF = new TextField();
@@ -36,14 +38,16 @@ public class Register extends Application {
 
         //bottone reg
         Button backButton = CustomButton.backButton(stage, new Home());
-        Label userLabel = new Label();
-        userLabel.setPrefSize(0,0);
-        Button reg = new Button("AVANTI");
-        reg.setOnAction(event -> {
+
+        Button next = new Button("AVANTI");
+        next.setOnAction(event -> {
+
             String[] str = {name.getText(), surname.getText(),CF.getText(), email.getText(), password.getText()};
-            Handler.setTmpOperator(str);
-            System.out.println(Handler.tmpOperatore.toString());
-            Handler.sceneChanger(stage,new CenterReg());
+            if(Controller.validOperatore(str)) {
+                SceneHandler.sceneChanger(stage, new CenterReg());
+            } else {
+                invisibleLabel.setText("Parametri non validi");
+            }
         });
 
 
@@ -65,13 +69,13 @@ public class Register extends Application {
         password.setPromptText("INSERISCI PASSWORD");
 
         VBox vb = new VBox();
-        vb.getChildren().addAll(name, surname, CF, email, password, userLabel, reg, backButton);
+        vb.getChildren().addAll(name, surname, CF, email, password, invisibleLabel, next, backButton);
         vb.setAlignment(Pos.CENTER);
 
 
         //SCENA
-        Handler.sceneSetter(stage, vb);
-        userLabel.requestFocus();
+        SceneHandler.sceneSetter(stage, vb);
+        invisibleLabel.requestFocus();
 
     }
 

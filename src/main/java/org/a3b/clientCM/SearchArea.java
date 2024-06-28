@@ -25,6 +25,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.a3b.clientCM.resource.CustomButton;
+import org.a3b.clientCM.resource.MisurazioneHandler;
+import org.a3b.clientCM.resource.RegisterHandler;
+import org.a3b.clientCM.resource.SceneHandler;
 import org.a3b.commons.magazzeno.AreaGeografica;
 import org.a3b.commons.magazzeno.ListaAree;
 
@@ -51,8 +55,8 @@ public class SearchArea extends Application {
 
         ListaAree list = App.server.getAreeGeografiche().get();
         ListView<String> listView = new ListView<>();
-        listView.setOnKeyPressed(event -> handleKeyPress(event, listView));
-        listView.setOnMouseClicked(event -> handleClick(event, listView));
+        listView.setOnKeyPressed(event -> handleKeyPress(stage, event, listView));
+        listView.setOnMouseClicked(event -> handleClick(stage, event, listView));
 
 
         // Lista di esempio (puoi sostituirla con dati reali)
@@ -75,23 +79,38 @@ public class SearchArea extends Application {
         root.setPadding(new Insets(10));
 
         // Creazione della scena
-        Handler.sceneSetter(stage, root);
+        SceneHandler.sceneSetter(stage, root);
     }
 
-    private void handleKeyPress(KeyEvent event, ListView<String> listView) {
+    private void handleKeyPress(Stage stage,KeyEvent event, ListView<String> listView){
         if (event.getCode() == KeyCode.ENTER) {
             String selectedItem = listView.getSelectionModel().getSelectedItem();
             if (selectedItem != null) {
-                System.out.println("Elemento selezionato: " + selectedItem);
+                try {
+                    long geoid = RegisterHandler.getGeoIDFromString(selectedItem);
+                    MisurazioneHandler.area = App.server.getAreaGeografica(geoid).get();
+                    System.out.println(MisurazioneHandler.area.toString());
+                    SceneHandler.sceneChanger(stage, new VisualArea());
+                } catch(Exception e){
+                    System.err.println(e);
+                }
             }
         }
     }
 
-    private void handleClick(MouseEvent event, ListView<String> listView) {
+    private void handleClick(Stage stage, MouseEvent event, ListView<String> listView) {
         if (event.getClickCount() == 2) {
             String selectedItem = listView.getSelectionModel().getSelectedItem();
             if (selectedItem != null) {
-                System.out.println("Elemento selezionato con doppio clic: " + selectedItem);
+                try {
+                    long geoid = RegisterHandler.getGeoIDFromString(selectedItem);
+                    MisurazioneHandler.area = App.server.getAreaGeografica(geoid).get();
+                    System.out.println(MisurazioneHandler.area.toString());
+                    SceneHandler.sceneChanger(stage, new VisualArea());
+
+                } catch(Exception e){
+                    System.err.println(e);
+                }
             }
         }
     }

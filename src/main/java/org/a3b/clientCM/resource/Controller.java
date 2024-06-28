@@ -15,6 +15,7 @@
 package org.a3b.clientCM.resource;
 
 import org.a3b.clientCM.App;
+import org.a3b.clientCM.Register;
 import org.a3b.commons.magazzeno.Operatore;
 
 public class Controller{
@@ -25,12 +26,18 @@ public class Controller{
                 long userIdLong = Long.parseLong(userID);
                 return isOperatore(userIdLong,password);
             } else return false;
-
-
-
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static boolean validOperatore(String[] attributi){
+        if(attributi[2].length() != 16) return false;
+        if(attributi[0].length() < 0 || attributi[1].length() < 0 ||
+                attributi[3].length() < 0 || attributi[4].length() < 0) return false;
+
+        RegisterHandler.setTmpOperator(attributi);
+        return true;
     }
 
     private static boolean isLong(String s) {
@@ -46,18 +53,18 @@ public class Controller{
     }
 
     private static boolean isOperatore(Long userId,String password) {
-        if(userId == 10){
-            App.operatore = new Operatore();
-            return true;
-        }
+
         if (password == null || password.isEmpty()) {
             return false;
         }
         try {
             App.operatore = App.server.login(userId,password).get();
+            App.centro = App.operatore.getCentro();
             return true;
         } catch (Exception e) {
             return false;
         }
     }
+
+
 }

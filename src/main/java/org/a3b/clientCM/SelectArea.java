@@ -11,14 +11,16 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.a3b.clientCM.resource.RegisterHandler;
+import org.a3b.clientCM.resource.SceneHandler;
 import org.a3b.commons.magazzeno.AreaGeografica;
 import org.a3b.commons.magazzeno.CentroMonitoraggio;
 import org.a3b.commons.magazzeno.ListaAree;
 import org.a3b.commons.magazzeno.Operatore;
+import org.a3b.commons.result.Result;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -62,30 +64,25 @@ public class SelectArea extends Application {
             listView.getItems().setAll(filteredItems);
         });
         conferma.setOnAction(event -> {
-            Handler.tmpCentro.setAree(listaAree);
-            Handler.tmpCentro.setCenterID(1);
-            Handler.tmpOperatore.setCentro(Handler.tmpCentro);
-            Handler.tmpOperatore.setUid(1);
-            CentroMonitoraggio cm;
-            try {
-                cm = App.server.registraCentroAree(Handler.tmpCentro).get();
 
+            CentroMonitoraggio cm = null;
+            try {
+                RegisterHandler.tmpCentro.setAree(listaAree);
+                cm = App.server.registraCentroAree(RegisterHandler.tmpCentro).get();
+                cm = App.server.alterListaAree(cm,listaAree).get();
+
+                RegisterHandler.tmpOperatore.setCentro(cm);
+                App.operatore = App.server.registrazione(RegisterHandler.tmpOperatore, RegisterHandler.tmpPassword).get();
+                App.centro = cm;
+                System.out.println(App.operatore.getUid());
+
+                SceneHandler.sceneChanger(stage, new Operator());
             } catch (RemoteException e) {
                 throw new RuntimeException(e);
             } catch(Exception e){
-                System.out.println("SONO QUI 1");
+                System.out.println();
             }
 
-            try {
-                Operatore op = App.server.registrazione(Handler.tmpOperatore,Handler.tmpPassword).get();
-                System.out.println(op.getUid());
-
-                Handler.sceneChanger(stage, new Home());
-            } catch (RemoteException e) {
-                throw new RuntimeException(e);
-            } catch(Exception e){
-                System.out.println("SONO QUI 2");
-            }
 
         });
         // Layout principale
@@ -93,14 +90,14 @@ public class SelectArea extends Application {
         root.setPadding(new Insets(10));
 
         // Creazione della scena
-        Handler.sceneSetter(stage, root);
+        SceneHandler.sceneSetter(stage, root);
     }
 
     private void handleKeyPress(KeyEvent event, ListView<String> listView, ListaAree la) throws RemoteException {
         if (event.getCode() == KeyCode.ENTER) {
             String selectedItem = listView.getSelectionModel().getSelectedItem();
             if (selectedItem != null) {
-                long geoid = Handler.getGeoIDFromString(selectedItem);
+                long geoid = RegisterHandler.getGeoIDFromString(selectedItem);
                 AreaGeografica ag = App.server.getAreaGeografica(geoid).get();
                 System.out.println(ag.toString());
                 la.add(ag);
@@ -112,7 +109,7 @@ public class SelectArea extends Application {
         if (event.getClickCount() == 2) {
             String selectedItem = listView.getSelectionModel().getSelectedItem();
             if (selectedItem != null) {
-                long geoid = Handler.getGeoIDFromString(selectedItem);
+                long geoid = RegisterHandler.getGeoIDFromString(selectedItem);
                 AreaGeografica ag = App.server.getAreaGeografica(geoid).get();
                 System.out.println(ag.toString());
                 la.add(ag);

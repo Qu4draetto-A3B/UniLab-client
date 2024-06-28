@@ -12,7 +12,7 @@
  * Some rights reserved.
  * See LICENSE file for additional information.
  */
-package org.a3b.clientCM;
+package org.a3b.clientCM.resource;
 
 
 import javafx.application.Application;
@@ -20,6 +20,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import org.a3b.clientCM.Home;
 
 import java.io.InputStream;
 
@@ -33,7 +34,7 @@ public class CustomButton {
         Button button = new Button();
         button.setGraphic(homeView);
         button.setStyle("-fx-background-color: transparent;");
-        button.setOnAction(event -> Handler.sceneChanger(stage, new Home()));
+        button.setOnAction(event -> SceneHandler.sceneChanger(stage, new Home()));
 
         return button;
     }
@@ -45,7 +46,7 @@ public class CustomButton {
         Button button = new Button();
         button.setGraphic(homeView);
         button.setStyle("-fx-background-color: transparent;");
-        button.setOnAction(event -> Handler.sceneChanger(stage, screen));
+        button.setOnAction(event -> SceneHandler.sceneChanger(stage, screen));
 
         return button;
     }

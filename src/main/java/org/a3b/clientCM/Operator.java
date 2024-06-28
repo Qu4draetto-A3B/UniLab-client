@@ -19,6 +19,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.a3b.clientCM.resource.SceneHandler;
 
 public class Operator extends Application {
     //dopo aver schiacciato il login si apre una pagina con i vari bottoni:
@@ -75,7 +76,7 @@ public class Operator extends Application {
         vb.setAlignment(Pos.CENTER);
 
         //SCENA
-        Handler.sceneSetter(stage, vb);
+        SceneHandler.sceneSetter(stage, vb);
     }
 
     private void changeInSearchAree(Stage stage) throws Exception {
