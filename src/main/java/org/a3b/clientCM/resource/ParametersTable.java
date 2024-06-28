@@ -21,9 +21,16 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
+import org.a3b.clientCM.App;
+import org.a3b.commons.magazzeno.Misurazione;
+import org.a3b.commons.utils.TipoDatoGeografico;
+
+import java.util.HashMap;
 
 public class ParametersTable {
-    private final static String[] PARAMETRI = {"Vento", "Umidità", "Pressione", "Temperatura", "Precipitazioni", "Altitudine dei ghiacciai", "Massa dei ghiacciai"};
+    private final static String[] PARAMETRI = {TipoDatoGeografico.AltitudineGhiacciai.name(), TipoDatoGeografico.MassaGhiacciai.name(),
+            TipoDatoGeografico.Precipitazioni.name(), TipoDatoGeografico.Pressione.name(), TipoDatoGeografico.Temperatura.name(),
+            TipoDatoGeografico.Umidita.name(), TipoDatoGeografico.Vento.name()};
 
     // Creazione della TableView
     TableView<RowParametres> tableView = new TableView<>();
@@ -65,17 +72,35 @@ public class ParametersTable {
         return tableView;
     }
 
-    public String getTableParameter() {
-        String str = "";
-        for (RowParametres mis : data) {
-            str = str + mis.toString() + "\n";
-        }
+    public Misurazione getTableParameter() {
+        String[] note = noteToArray();
+        Byte[] valori = scoreToArray();
 
-        return str;
+        HashMap<TipoDatoGeografico, Byte>  tmp1 = Misurazione.buildDati(valori[0],valori[1],valori[2],valori[3],valori[4],valori[5],valori[6]);
+        HashMap<TipoDatoGeografico, String>  tmp2 = Misurazione.buildNote(note[0],note[1],note[2],note[3],note[4],note[5],note[6]);
+
+        return new Misurazione(0, App.operatore, null,tmp1,tmp2);
     }
 
+    private String[] noteToArray(){
+        String[] tmpArray = new String[data.size()];
+        int i = 0;
+        for (RowParametres mis : data) {
+            tmpArray[i++] = mis.getText();
+        }
 
-    // Creazione delle colonne (con i nomi delle proprietà da visualizzare)
+        return tmpArray;
+    }
+
+    private Byte[] scoreToArray(){
+        Byte[] tmpArray = new Byte[data.size()];
+        int i = 0;
+        for (RowParametres mis : data) {
+            tmpArray[i++] = mis.getScore();
+        }
+
+        return tmpArray;
+    }
 
 
 }

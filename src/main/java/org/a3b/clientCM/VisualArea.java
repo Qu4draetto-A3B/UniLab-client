@@ -15,7 +15,7 @@ public class VisualArea extends Application {
 
     public void start(Stage stage){
         TextField textfield = new TextField();
-        textfield.setText(MisurazioneHandler.area.toString());
+        textfield.setText(MisurazioneHandler.getMedia());
         VBox vbox = new VBox();
         vbox.getChildren().addAll(textfield, CustomButton.backButton(stage, new SearchArea()));
         SceneHandler.sceneSetter(stage,vbox);

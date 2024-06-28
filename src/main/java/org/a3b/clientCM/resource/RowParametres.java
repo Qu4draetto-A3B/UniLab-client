@@ -56,6 +56,9 @@ public class RowParametres {
         note = hb;
     }
 
+    public String getText(){return NC.getText();}
+    public Byte getScore(){return (byte) SC.getScore();}
+
     /*--------------------------------------
     ----------------------------------------
     ---METODO PROVVISORIO-------------------
