@@ -22,6 +22,7 @@ import org.a3b.commons.result.Result;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Handler;
 import java.util.stream.Collectors;
 
 
@@ -31,20 +32,19 @@ public class SelectArea extends Application {
         Pane vb = new Pane();
         TextField searchField = new TextField();
         searchField.setPromptText("Cerca...");
-        ListaAree listaAree = new ListaAree();
         Button conferma = new Button("Conferma");
         ListaAree list = App.server.getAreeGeografiche().get();
         ListView<String> listView = new ListView<>();
         listView.setOnKeyPressed(event -> {
             try {
-                handleKeyPress(event, listView, listaAree);
+                handleKeyPress(event, listView);
             } catch (RemoteException e) {
                 throw new RuntimeException(e);
             }
         });
         listView.setOnMouseClicked(event -> {
             try {
-                handleClick(event, listView, listaAree);
+                handleClick(event, listView);
             } catch (RemoteException e) {
                 throw new RuntimeException(e);
             }
@@ -64,23 +64,15 @@ public class SelectArea extends Application {
             listView.getItems().setAll(filteredItems);
         });
         conferma.setOnAction(event -> {
+            boolean esito;
+            if(App.operatore != null){
+                esito = RegisterHandler.newCenter();
+                System.out.println(esito);
+                if(esito) SceneHandler.sceneChanger(stage,new NewMonitoringCenter());
 
-            CentroMonitoraggio cm = null;
-            try {
-                RegisterHandler.tmpCentro.setAree(listaAree);
-                cm = App.server.registraCentroAree(RegisterHandler.tmpCentro).get();
-                cm = App.server.alterListaAree(cm,listaAree).get();
-
-                RegisterHandler.tmpOperatore.setCentro(cm);
-                App.operatore = App.server.registrazione(RegisterHandler.tmpOperatore, RegisterHandler.tmpPassword).get();
-                App.centro = cm;
-                System.out.println(App.operatore.getUid());
-
-                SceneHandler.sceneChanger(stage, new Operator());
-            } catch (RemoteException e) {
-                throw new RuntimeException(e);
-            } catch(Exception e){
-                System.out.println();
+            } else {
+                esito = RegisterHandler.newOperator();
+                if(esito) SceneHandler.sceneChanger(stage,new Operator());
             }
 
 
@@ -93,27 +85,29 @@ public class SelectArea extends Application {
         SceneHandler.sceneSetter(stage, root);
     }
 
-    private void handleKeyPress(KeyEvent event, ListView<String> listView, ListaAree la) throws RemoteException {
+    private void handleKeyPress(KeyEvent event, ListView<String> listView) throws RemoteException {
         if (event.getCode() == KeyCode.ENTER) {
             String selectedItem = listView.getSelectionModel().getSelectedItem();
             if (selectedItem != null) {
                 long geoid = RegisterHandler.getGeoIDFromString(selectedItem);
                 AreaGeografica ag = App.server.getAreaGeografica(geoid).get();
                 System.out.println(ag.toString());
-                la.add(ag);
+                RegisterHandler.tmpLista.add(ag);
             }
         }
     }
 
-    private void handleClick(MouseEvent event, ListView<String> listView, ListaAree la) throws RemoteException {
+    private void handleClick(MouseEvent event, ListView<String> listView) throws RemoteException {
         if (event.getClickCount() == 2) {
             String selectedItem = listView.getSelectionModel().getSelectedItem();
             if (selectedItem != null) {
                 long geoid = RegisterHandler.getGeoIDFromString(selectedItem);
                 AreaGeografica ag = App.server.getAreaGeografica(geoid).get();
                 System.out.println(ag.toString());
-                la.add(ag);
+                RegisterHandler.tmpLista.add(ag);
             }
         }
     }
+
 }
+

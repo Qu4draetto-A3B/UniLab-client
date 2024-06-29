@@ -1,12 +1,21 @@
 package org.a3b.clientCM.resource;
 
+import javafx.stage.Stage;
+import org.a3b.clientCM.App;
+import org.a3b.clientCM.NewMonitoringCenter;
+import org.a3b.clientCM.Operator;
 import org.a3b.commons.magazzeno.CentroMonitoraggio;
+import org.a3b.commons.magazzeno.ListaAree;
 import org.a3b.commons.magazzeno.Operatore;
+
+import java.rmi.RemoteException;
 
 public class RegisterHandler {
     public static Operatore tmpOperatore = new Operatore();
     public static CentroMonitoraggio tmpCentro = new CentroMonitoraggio();
+    public static ListaAree tmpLista= new ListaAree();
     public static String tmpPassword = "";
+
 
     public static void setTmpOperator(String[] attributi){
 
@@ -17,6 +26,45 @@ public class RegisterHandler {
 
         tmpPassword = attributi[4];
 
+    }
+    public static void newRegister(){
+        tmpLista = new ListaAree();
+        tmpOperatore = new Operatore();
+        tmpCentro = new CentroMonitoraggio();
+        tmpPassword = "";
+    }
+    public static boolean newCenter(){
+        try{
+            if(!tmpLista.isEmpty()) {
+                tmpCentro.setAree(tmpLista);
+                tmpCentro = App.server.registraCentroAree(tmpCentro).get();
+                App.server.alterListaAree(tmpCentro, tmpLista).get();
+                tmpLista = new ListaAree();
+            } else {
+                return false;
+            }
+        } catch (Exception e){
+            return false;
+        }
+        return true;
+    }
+    public static boolean newOperator(){
+        try{
+                if(newCenter()) {
+                    if (App.operatore == null) {
+                        RegisterHandler.tmpOperatore.setCentro(tmpCentro);
+                        App.operatore = App.server.registrazione(tmpOperatore, tmpPassword).get();
+                        App.centro = tmpCentro;
+                        System.out.println(App.operatore.getUid());
+                    }
+                } else {
+                    return false;
+                }
+        } catch(Exception e){
+            return false;
+        }
+        newRegister();
+        return true;
     }
 
     public static void setTmpCentro(String[] attributi){

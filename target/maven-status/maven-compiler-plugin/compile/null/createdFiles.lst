@@ -9,6 +9,7 @@ org\a3b\clientCM\resource\CustomButton.class
 org\a3b\clientCM\Operator.class
 org\a3b\clientCM\SearchArea.class
 org\a3b\clientCM\SelectArea.class
+org\a3b\clientCM\resource\SubList.class
 org\a3b\clientCM\CenterReg.class
 org\a3b\clientCM\resource\RegisterHandler.class
 org\a3b\clientCM\resource\SceneHandler.class

@@ -42,7 +42,7 @@ public class NewMonitoringCenter extends Application {
         //BOTTONI E TEXTFIELD
 
 
-        Button enter = new Button("CONFERMA");
+
         //bottoni con immagini
 
 
@@ -74,8 +74,15 @@ public class NewMonitoringCenter extends Application {
             backButton = CustomButton.backButton(stage, new Operator());
             button.setText("CREA CENTRO");
 
+            button.setOnAction(event -> {
+                String[] tmp = {name.getText(),street.getText(), civicnumber.getText(), zipcode.getText(), town.getText(),province.getText()};
+                RegisterHandler.setTmpCentro(tmp);
+                System.out.println(RegisterHandler.tmpCentro.toString());
+                SceneHandler.sceneChanger(stage,new SelectArea());
+            });
+
         } else {
-            backButton = CustomButton.backButton(stage, new Home());
+            backButton = CustomButton.backButton(stage, new CenterReg());
             button.setText("REGISTRATI");
             button.setOnAction(event -> {
                 String[] tmp = {name.getText(),street.getText(), civicnumber.getText(), zipcode.getText(), town.getText(),province.getText()};
