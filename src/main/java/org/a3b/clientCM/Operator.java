@@ -32,7 +32,7 @@ public class Operator extends Application {
         Button insertParam = new Button("INSERISCI PARAMETRI");
         Button createNewCenter = new Button("CREA NUOVO CENTRO DI MONITORAGGIO");
         Button viewAree = new Button("VISUALIZZA AREE");
-        Button settings = new Button("VISULIZZA PROFILO");
+        Button settings = new Button("VISUALIZZA PROFILO");
         Button exit = new Button("LOGOUT");
 
         //bottone inserimento parametri
