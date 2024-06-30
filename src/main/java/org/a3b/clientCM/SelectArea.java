@@ -3,6 +3,7 @@ package org.a3b.clientCM;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -33,6 +34,7 @@ public class SelectArea extends Application {
         TextField searchField = new TextField();
         searchField.setPromptText("Cerca...");
         Button conferma = new Button("Conferma");
+        Label invisible = new Label();
         ListaAree list = App.server.getAreeGeografiche().get();
         ListView<String> listView = new ListView<>();
         listView.setOnKeyPressed(event -> {
@@ -54,7 +56,7 @@ public class SelectArea extends Application {
         for (AreaGeografica ag : list) {
             items.add(ag.toString());
         }
-
+        listView.getItems().setAll(items);
         // Aggiungi un listener alla proprietà textProperty del TextField
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
             String searchText = newValue.toLowerCase();
@@ -69,16 +71,18 @@ public class SelectArea extends Application {
                 esito = RegisterHandler.newCenter();
                 System.out.println(esito);
                 if(esito) SceneHandler.sceneChanger(stage,new NewMonitoringCenter());
+                else invisible.setText("SELEZIONARE ALMENO UN?AREA GEOGRAFICA");
 
             } else {
                 esito = RegisterHandler.newOperator();
                 if(esito) SceneHandler.sceneChanger(stage,new Operator());
+                else invisible.setText("SELEZIONARE ALMENO UN?AREA GEOGRAFICA");
             }
 
 
         });
         // Layout principale
-        VBox root = new VBox(10, searchField, listView, vb,conferma);
+        VBox root = new VBox(10, searchField,invisible, listView, vb,conferma);
         root.setPadding(new Insets(10));
 
         // Creazione della scena

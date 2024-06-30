@@ -23,7 +23,7 @@ import javafx.scene.shape.Circle;
 
 public class ScoreCell {
 
-    private static final String[] INDEX = {"0", "1", "2", "3", "4", "5"};
+    private static final String[] INDEX = {"1", "2", "3", "4", "5"};
     private int score = 0;
     private final HBox circlesContainer;
 
@@ -31,7 +31,7 @@ public class ScoreCell {
         circlesContainer = new HBox(10); // Valore della spaziatura tra i cerchi
         // Valore della spaziatura tra gli elementi dle HBox
         circlesContainer.setAlignment(Pos.CENTER);
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 5; i++) {
             circlesContainer.getChildren().add(createBall(INDEX[i], i));
         }
     }

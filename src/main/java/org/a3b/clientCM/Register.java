@@ -46,7 +46,7 @@ public class Register extends Application {
             if(Controller.validOperatore(str)) {
                 SceneHandler.sceneChanger(stage, new CenterReg());
             } else {
-                invisibleLabel.setText("Parametri non validi");
+                invisibleLabel.setText("PARAMETRO/I NON VALIDO/I");
             }
         });
 

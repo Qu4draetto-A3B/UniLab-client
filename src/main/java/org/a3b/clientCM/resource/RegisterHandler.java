@@ -67,13 +67,36 @@ public class RegisterHandler {
         return true;
     }
 
-    public static void setTmpCentro(String[] attributi){
-        tmpCentro.setNome(attributi[0]);
-        tmpCentro.setNomeVia(attributi[1]);
-        tmpCentro.setCivico(Integer.parseInt(attributi[2]));
-        tmpCentro.setCap(Integer.parseInt(attributi[3]));
-        tmpCentro.setComune(attributi[4]);
-        tmpCentro.setProvincia(attributi[5]);
+    public static boolean newOperatorExist(){
+        try{
+
+            RegisterHandler.tmpOperatore.setCentro(tmpCentro);
+            App.operatore = App.server.registrazione(tmpOperatore, tmpPassword).get();
+            App.centro = tmpCentro;
+            System.out.println(App.operatore.getUid());
+
+        } catch(Exception e){
+            return false;
+        }
+        newRegister();
+        return true;
+    }
+
+    public static boolean setTmpCentro(String[] attributi){
+        try{
+            if(Controller.validCenter(attributi)) {
+                tmpCentro.setNome(attributi[0]);
+                tmpCentro.setNomeVia(attributi[1]);
+                tmpCentro.setCivico(Integer.parseInt(attributi[2]));
+                tmpCentro.setCap(Integer.parseInt(attributi[3]));
+                tmpCentro.setComune(attributi[4]);
+                tmpCentro.setProvincia(attributi[5]);
+            } else { return false;}
+        }catch (Exception e){
+            return false;
+        }
+
+        return true;
     }
 
     public static long getGeoIDFromString(String input){

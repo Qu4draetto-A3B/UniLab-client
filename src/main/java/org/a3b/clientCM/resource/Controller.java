@@ -39,7 +39,11 @@ public class Controller{
         RegisterHandler.setTmpOperator(attributi);
         return true;
     }
-
+    public static boolean validCenter(String[] attributi){
+        if(attributi[0].length() < 0 || attributi[1].length() < 0 ||
+                attributi[2].length() < 0 || attributi[3].length() < 0) return false;
+        return true;
+    }
     private static boolean isLong(String s) {
         if (s == null || s.isEmpty()) {
             return false;

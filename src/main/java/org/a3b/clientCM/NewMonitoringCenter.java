@@ -17,6 +17,7 @@ package org.a3b.clientCM;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -33,7 +34,7 @@ public class NewMonitoringCenter extends Application {
     private TextField zipcode = new TextField();
     private TextField town = new TextField();
     private TextField province = new TextField();
-
+    private Label invisible = new Label();
     @Override
     public void start(Stage stage) throws Exception {
         Pane pane = setButton(stage);
@@ -50,16 +51,16 @@ public class NewMonitoringCenter extends Application {
         name.setPromptText("INSERISCI NOME CENTRO");
         town.setPromptText("INSERISCI CITTA");
         province.setPromptText("INSERISCI PROVINCIA");
-        street.setPromptText("INSERISCI STRADA");
+        street.setPromptText("INSERISCI VIA");
         civicnumber.setPromptText("INSERISCI NUMEROCIVICO");
-        zipcode.setPromptText("INSERISCI ZIPCODE");
+        zipcode.setPromptText("INSERISCI CAP");
 
 
         //VBOX
         VBox vb = new VBox();
-        vb.getChildren().addAll(name,town, province, street, civicnumber, zipcode, pane);
+        vb.getChildren().addAll(name,town, province, street, civicnumber, zipcode,invisible, pane);
         vb.setAlignment(Pos.CENTER);
-
+        invisible.requestFocus();
 
         //SCENA
         SceneHandler.sceneSetter(stage, vb);
@@ -76,9 +77,13 @@ public class NewMonitoringCenter extends Application {
 
             button.setOnAction(event -> {
                 String[] tmp = {name.getText(),street.getText(), civicnumber.getText(), zipcode.getText(), town.getText(),province.getText()};
-                RegisterHandler.setTmpCentro(tmp);
-                System.out.println(RegisterHandler.tmpCentro.toString());
-                SceneHandler.sceneChanger(stage,new SelectArea());
+                boolean esito = RegisterHandler.setTmpCentro(tmp);
+                if(esito) {
+                    System.out.println(RegisterHandler.tmpCentro.toString());
+                    SceneHandler.sceneChanger(stage, new SelectArea());
+                } else {
+                    invisible.setText("PARAMETRO/I NON VALIDO/I");
+                }
             });
 
         } else {
@@ -86,9 +91,13 @@ public class NewMonitoringCenter extends Application {
             button.setText("REGISTRATI");
             button.setOnAction(event -> {
                 String[] tmp = {name.getText(),street.getText(), civicnumber.getText(), zipcode.getText(), town.getText(),province.getText()};
-                RegisterHandler.setTmpCentro(tmp);
-                System.out.println(RegisterHandler.tmpCentro.toString());
-                SceneHandler.sceneChanger(stage,new SelectArea());
+                boolean esito = RegisterHandler.setTmpCentro(tmp);
+                if(esito) {
+                    System.out.println(RegisterHandler.tmpCentro.toString());
+                    SceneHandler.sceneChanger(stage, new SelectArea());
+                } else {
+                    invisible.setText("PARAMETRO/I NON VALIDO/I");
+                }
             });
         }
         vb.getChildren().addAll(backButton,button);

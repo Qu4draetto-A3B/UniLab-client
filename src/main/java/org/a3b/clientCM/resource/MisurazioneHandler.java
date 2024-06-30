@@ -4,7 +4,10 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.ListView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import org.a3b.clientCM.App;
 import org.a3b.commons.magazzeno.AreaGeografica;
 import org.a3b.commons.magazzeno.ListaMisurazioni;
@@ -15,7 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MisurazioneHandler {
-    public static AreaGeografica area;
+    public static AreaGeografica area = null;
+    public static ListView<String> listView = new ListView<>();
     public static boolean insertMisurazione(Misurazione misurazione) {
         misurazione.setArea(area);
         try{
@@ -60,11 +64,13 @@ public class MisurazioneHandler {
         return null;
     }
 
-    public static Pane visualizza(int[] values, List<String>[] note,int count) {
+    public static Pane visualizza(int[] values, List<String>[] note, int count) {
+
+
         // Creazione degli assi
         CategoryAxis xAxis = new CategoryAxis();
         NumberAxis yAxis = new NumberAxis();
-        xAxis.setLabel("Categoria");
+        xAxis.setLabel("");
         yAxis.setLabel("Valore");
 
         BarChart<String, Number> barChart = new BarChart<>(xAxis, yAxis);
@@ -72,18 +78,38 @@ public class MisurazioneHandler {
 
         XYChart.Series<String, Number> dataSeries = new XYChart.Series<>();
         dataSeries.setName("PARAMETRI");
+        barChart.setLegendVisible(false);
+        String colorStyle = "-fx-bar-fill: " + Color.web("#01BFBF").toString().replace("0x", "#") + ";";
         int i = 0;
         for (TipoDatoGeografico tipo : TipoDatoGeografico.values()) {
-            System.out.println(count);
-            dataSeries.getData().add(new XYChart.Data<>(tipo.name(), values[i]/count));
+            List<String> tmp = note[i];
+            XYChart.Data<String, Number> data = new XYChart.Data<>(tipo.name(), (float)values[i]/(float)count);
+            data.nodeProperty().addListener((obs, oldNode, newNode) -> {
+                newNode.setStyle(colorStyle);
+                newNode.setOnMouseClicked(event -> {
+                    System.out.println("Hai cliccato su " + tipo.name());
+                    listNote(tmp);
+                });
+            });
+
+            dataSeries.getData().add(data);
             i++;
         }
 
         barChart.getData().add(dataSeries);
-        Pane pane = new Pane();
-        pane.getChildren().add(barChart);
-        return pane;
 
+        HBox hbox = new HBox();
+        hbox.getChildren().addAll(barChart,listView);
+
+        return hbox;
+
+    }
+
+    public static void listNote(List<String> tmp){
+        listView.getItems().clear();
+        for(String str : tmp){
+            if(str.length()>0) listView.getItems().add(str);
+        }
     }
 }
 
