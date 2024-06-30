@@ -2,6 +2,7 @@ package org.a3b.clientCM;
 
 import javafx.application.Application;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.a3b.clientCM.resource.CustomButton;
@@ -14,11 +15,10 @@ public class VisualArea extends Application {
 
 
     public void start(Stage stage){
-        TextField textfield = new TextField();
-        textfield.setText(MisurazioneHandler.getMedia());
-        VBox vbox = new VBox();
-        vbox.getChildren().addAll(textfield, CustomButton.backButton(stage, new SearchArea()));
-        SceneHandler.sceneSetter(stage,vbox);
+
+        Pane pane = MisurazioneHandler.getMedia();
+
+        SceneHandler.sceneSetter(stage,pane);
     }
 
 

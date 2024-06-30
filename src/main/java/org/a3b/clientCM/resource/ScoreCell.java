@@ -24,7 +24,7 @@ import javafx.scene.shape.Circle;
 public class ScoreCell {
 
     private static final String[] INDEX = {"0", "1", "2", "3", "4", "5"};
-    private int score = -1;
+    private int score = 0;
     private final HBox circlesContainer;
 
     public ScoreCell() {
