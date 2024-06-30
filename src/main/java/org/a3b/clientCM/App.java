@@ -14,6 +14,7 @@
  */
 package org.a3b.clientCM;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import org.a3b.commons.ServicesCM;
@@ -21,6 +22,7 @@ import org.a3b.commons.magazzeno.CentroMonitoraggio;
 import org.a3b.commons.magazzeno.Operatore;
 import org.a3b.serverCM.ServerCM;
 
+import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
@@ -32,14 +34,19 @@ public class App extends Application {
     public static ServicesCM server;
     public static Operatore operatore = null;
     public static CentroMonitoraggio centro = null;
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
+        Dotenv env = Dotenv.configure()
+                .filename((args.length > 0) ? args[0] : "config.env")
+                .ignoreIfMissing()
+                .load();
+
+        Registry reg = LocateRegistry.getRegistry(env.get("RMI_HOST", "localhost"));
+        server = (ServicesCM) reg.lookup("CM");
         launch();
     }
 
     @Override
     public void start(Stage stage) throws Exception {
-        Registry reg = LocateRegistry.getRegistry();
-        server = (ServicesCM) reg.lookup("CM");
         new Home().start(stage);
     }
 

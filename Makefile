@@ -1,8 +1,8 @@
 # Main Class, project name, change as preferred
 MAIN_CLASS := org.a3b.serverCM.ServerCM
 VERSION := 1.0
-PRJ_NAME := UniLab-server
-EXE_NAME := UniLab-server-$(VERSION)
+PRJ_NAME := UniLab-client
+EXE_NAME := UniLab-client-$(VERSION)
 
 # Directories for where to find build files, libraries and sources, respectively
 BUILD_DIR := ./target
