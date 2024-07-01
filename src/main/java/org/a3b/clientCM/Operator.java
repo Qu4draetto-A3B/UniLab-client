@@ -27,19 +27,26 @@ public class Operator extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         //bottoni con immagini
-
+        App.centro = App.operatore.getCentro();
         //bottoni
         Button insertParam = new Button("INSERISCI PARAMETRI");
         Button createNewCenter = new Button("CREA NUOVO CENTRO DI MONITORAGGIO");
         Button viewAree = new Button("VISUALIZZA AREE");
-        Button settings = new Button("VISULIZZA PROFILO");
-        Button exit = new Button("ESCI");
+        Button settings = new Button("VISUALIZZA PROFILO");
+        Button exit = new Button("LOGOUT");
 
         //bottone inserimento parametri
         insertParam.setOnAction(event -> {
             try {
                 changeInInsertParam(stage);
             } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
+        settings.setOnAction(event -> {
+            try{
+                SceneHandler.sceneChanger(stage,new Profile());
+            }catch (Exception e) {
                 throw new RuntimeException(e);
             }
         });

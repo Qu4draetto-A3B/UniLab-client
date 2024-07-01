@@ -15,6 +15,8 @@
 package org.a3b.clientCM;
 
 import javafx.application.Application;
+import javafx.scene.chart.BarChart;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -30,9 +32,11 @@ public class VisualArea extends Application {
 
     public void start(Stage stage){
 
-        Pane pane = MisurazioneHandler.getMedia();
-
-        SceneHandler.sceneSetter(stage,pane);
+        Pane bar = MisurazioneHandler.getMedia();
+        Button back = CustomButton.backButton(stage,new SearchArea());
+        VBox vbox = new VBox();
+        vbox.getChildren().addAll(bar,back);
+        SceneHandler.sceneSetter(stage,vbox);
     }
 
 

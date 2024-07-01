@@ -21,20 +21,14 @@ import javafx.scene.control.ListView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import org.a3b.clientCM.resource.CustomButton;
-import org.a3b.clientCM.resource.RegisterHandler;
-import org.a3b.clientCM.resource.SceneHandler;
-import org.a3b.clientCM.resource.SubList;
-import org.a3b.commons.magazzeno.AreaGeografica;
+import org.a3b.clientCM.resource.*;
 import org.a3b.commons.magazzeno.CentroMonitoraggio;
-import org.a3b.commons.magazzeno.ListaAree;
 import org.a3b.commons.magazzeno.ListaCentri;
 
 import java.rmi.RemoteException;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class ExistMonitorCenter extends Application {
     @Override
@@ -49,14 +43,14 @@ public class ExistMonitorCenter extends Application {
         }
         list.setOnKeyPressed(event -> {
             try {
-                handleKeyPress(event, list);
+                handleKeyPress(stage,event, list);
             } catch (RemoteException e) {
                 throw new RuntimeException(e);
             }
         });
         list.setOnMouseClicked(event -> {
             try {
-                handleClick(event, list);
+                handleClick(stage,event, list);
             } catch (RemoteException e) {
                 throw new RuntimeException(e);
             }
@@ -80,22 +74,24 @@ public class ExistMonitorCenter extends Application {
         SceneHandler.sceneSetter(stage, vb);
     }
 
-    private void handleKeyPress(KeyEvent event, ListView<SubList> listView) throws RemoteException {
+    private void handleKeyPress(Stage stage, KeyEvent event, ListView<SubList> listView) throws RemoteException {
         if (event.getCode() == KeyCode.ENTER) {
             SubList selectedItem = listView.getSelectionModel().getSelectedItem();
             if (selectedItem != null) {
                 RegisterHandler.tmpCentro = selectedItem.getCentro();
-                RegisterHandler.newOperator();
+                RegisterHandler.newOperatorExist();
+                SceneHandler.sceneChanger(stage,new Operator());
             }
         }
     }
 
-    private void handleClick(MouseEvent event, ListView<SubList> listView) throws RemoteException {
+    private void handleClick(Stage stage, MouseEvent event, ListView<SubList> listView) throws RemoteException {
         if (event.getClickCount() == 2) {
             SubList selectedItem = listView.getSelectionModel().getSelectedItem();
             if (selectedItem != null) {
                 RegisterHandler.tmpCentro = selectedItem.getCentro();
-                RegisterHandler.newOperator();
+                RegisterHandler.newOperatorExist();
+                SceneHandler.sceneChanger(stage,new Operator());
             }
         }
     }

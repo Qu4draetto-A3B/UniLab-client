@@ -25,10 +25,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import org.a3b.clientCM.resource.CustomButton;
-import org.a3b.clientCM.resource.MisurazioneHandler;
-import org.a3b.clientCM.resource.RegisterHandler;
-import org.a3b.clientCM.resource.SceneHandler;
+import org.a3b.clientCM.resource.*;
 import org.a3b.commons.magazzeno.AreaGeografica;
 import org.a3b.commons.magazzeno.ListaAree;
 
@@ -55,6 +52,7 @@ public class SearchArea extends Application {
 
         ListaAree list = App.server.getAreeGeografiche().get();
         ListView<String> listView = new ListView<>();
+
         listView.setOnKeyPressed(event -> handleKeyPress(stage, event, listView));
         listView.setOnMouseClicked(event -> handleClick(stage, event, listView));
 
@@ -64,6 +62,8 @@ public class SearchArea extends Application {
         for(AreaGeografica ag : list){
             items.add(ag.toString());
         }
+
+        listView.getItems().addAll(items);
 
         // Aggiungi un listener alla proprietà textProperty del TextField
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {

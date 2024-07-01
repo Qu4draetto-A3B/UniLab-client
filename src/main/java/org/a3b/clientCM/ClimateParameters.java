@@ -16,10 +16,7 @@ package org.a3b.clientCM;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -41,7 +38,7 @@ public class ClimateParameters extends Application {
     public void start(Stage stage) throws RemoteException {
         TextField searchField = new TextField();
         searchField.setPromptText("Cerca...");
-
+        Label invisible = new Label();
         Button backButton = CustomButton.backButton(stage, new Operator()); // Bottone back
         ListaAree listaAree= App.centro.getAree();
         ListView<String> listView = new ListView<>();
@@ -52,6 +49,8 @@ public class ClimateParameters extends Application {
         for(AreaGeografica ag : listaAree){
             items.add(ag.toString());
         }
+
+        listView.getItems().setAll(items);
 
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
             String searchText = newValue.toLowerCase();
@@ -65,11 +64,16 @@ public class ClimateParameters extends Application {
         ParametersTable pt = new ParametersTable();
         TableView<RowParametres> tv = pt.getTableView();
         Button invia = new Button("Invio");
-        VBox vb = new VBox(searchField,listView, tv, invia, backButton);
+        VBox vb = new VBox(invisible,searchField,listView, tv, invia, backButton);
 
         invia.setOnAction(event -> {
-            MisurazioneHandler.insertMisurazione(pt.getTableParameter());
-            SceneHandler.sceneChanger(stage,this);
+            if(MisurazioneHandler.area != null) {
+                MisurazioneHandler.insertMisurazione(pt.getTableParameter());
+                MisurazioneHandler.area = null;
+                SceneHandler.sceneChanger(stage, this);
+            } else {
+                invisible.setText("SELEZIONARE UN'AREA GEOGRAFICA");
+            }
         });
 
         SceneHandler.sceneSetter(stage, vb);

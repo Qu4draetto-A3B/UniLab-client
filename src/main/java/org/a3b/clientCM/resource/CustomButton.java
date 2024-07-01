@@ -23,12 +23,18 @@ import javafx.stage.Stage;
 import org.a3b.clientCM.Home;
 
 import java.io.InputStream;
-
+/**
+ * Questa classe fornisce metodi di utilità per creare pulsanti personalizzati in JavaFX con funzionalità specifiche.
+ */
 public class CustomButton {
 
-
+    /**
+     * Crea un pulsante "home" con un'immagine specificata e un'azione associata.
+     *
+     * @param stage Il palcoscenico principale dell'applicazione.
+     * @return Un oggetto Button che rappresenta il pulsante "home".
+     */
     public static Button homeButton(Stage stage) {
-
         ImageView homeView = getImage("/img/home.png");
 
         Button button = new Button();
@@ -39,26 +45,37 @@ public class CustomButton {
         return button;
     }
 
+    /**
+     * Crea un pulsante "indietro" con un'immagine specificata e un'azione associata.
+     *
+     * @param stage  Il palcoscenico principale dell'applicazione.
+     * @param screen L'applicazione di destinazione verso cui tornare.
+     * @return Un oggetto Button che rappresenta il pulsante "indietro".
+     */
     public static Button backButton(Stage stage, Application screen) {
-
-        ImageView homeView = getImage("/img/arrow.png");
+        ImageView backView = getImage("/img/arrow.png");
 
         Button button = new Button();
-        button.setGraphic(homeView);
+        button.setGraphic(backView);
         button.setStyle("-fx-background-color: transparent;");
         button.setOnAction(event -> SceneHandler.sceneChanger(stage, screen));
 
         return button;
     }
 
+    /**
+     * Carica e restituisce un'ImageView con l'immagine specificata dal percorso della risorsa.
+     *
+     * @param imagePath Il percorso alla risorsa dell'immagine.
+     * @return Un oggetto ImageView che visualizza l'immagine caricata.
+     */
     public static ImageView getImage(String imagePath) {
         InputStream imageStream = CustomButton.class.getResourceAsStream(imagePath);
-        Image home = new Image(imageStream);
-        ImageView homeView = new ImageView(home);
-        homeView.setFitWidth(50);  // Imposta la larghezza desiderata
-        homeView.setFitHeight(50); // Imposta l'altezza desiderata
-        homeView.setPreserveRatio(true);
-        return homeView;
+        Image image = new Image(imageStream);
+        ImageView imageView = new ImageView(image);
+        imageView.setFitWidth(50);  // Imposta la larghezza desiderata
+        imageView.setFitHeight(50); // Imposta l'altezza desiderata
+        imageView.setPreserveRatio(true);
+        return imageView;
     }
-
 }
