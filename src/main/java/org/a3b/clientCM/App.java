@@ -20,9 +20,7 @@ import javafx.stage.Stage;
 import org.a3b.commons.ServicesCM;
 import org.a3b.commons.magazzeno.CentroMonitoraggio;
 import org.a3b.commons.magazzeno.Operatore;
-import org.a3b.serverCM.ServerCM;
 
-import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
